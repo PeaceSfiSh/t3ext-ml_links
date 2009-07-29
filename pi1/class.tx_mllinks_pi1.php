@@ -2,6 +2,9 @@
 /***************************************************************
 *  Copyright notice
 *
+*  (c) 2009 Xavier Perseguers (typo3@perseguers.ch)
+*  All rights reserved
+*
 *  (c) 2006 Markus Friedrich (markus.friedrich@media-lights.de)
 *  All rights reserved
 *
@@ -262,7 +265,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 			}
 
 					
-			$size = '%.' . $decimalPlaces . 'f %s';
+			$size = '(%.' . $decimalPlaces . 'f %s)';
 			if (isset($data['filesize.']['link']) && $data['filesize.']['link'] == 1) {
 				$stringFilesize .= $linkTag . sprintf($size, $filesize, $units[$j]) . '</a>';
 			}
@@ -390,6 +393,8 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	function main($content,$conf)	{
 		global $TSFE;
 
+		// get configuration
+		$conf = $TSFE->tmpl->setup['plugin.']['tx_mllinks_pi1.'];
 
 		$fileType = $TSFE->register['fileType'];
 		$linkType = $TSFE->register['linkType'];
