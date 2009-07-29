@@ -41,7 +41,6 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	var $tag = "";
 	var $separator = " ";
 
-
 	/**
 	 * add image 
 	 */
@@ -230,6 +229,9 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	 * add filesize
 	 */
 	 function insertFilesize ($data, $url, $linkTag) {
+	 	global $LANG;
+		if ($LANG == null) return;
+		$LANG->includeLLFile('EXT:ml_links/pi1/locallang.xml');
 	 	$stringFilesize = "";
 
 		if (($data['filesize'] == 1) && file_exists($url)) {
@@ -244,11 +246,11 @@ class tx_mllinks_pi1 extends tslib_pibase {
 			}
 
 			$units = array(
-				'0' => 'Byte',
-				'1' => 'KB',
-				'2' => 'MB',
-				'3' => 'GB',
-				'4' => 'TB'
+				'0' => $LANG->getLL('bytes'),
+				'1' => $LANG->getLL('KB'),
+				'2' => $LANG->getLL('MB'),
+				'3' => $LANG->getLL('GB'),
+				'4' => $LANG->getLL('TB'),
 			);
 							
 			$j = 0; 
@@ -264,7 +266,6 @@ class tx_mllinks_pi1 extends tslib_pibase {
 				$decimalPlaces = $j-1;
 			}
 
-					
 			$size = '(%.' . $decimalPlaces . 'f %s)';
 			if (isset($data['filesize.']['link']) && $data['filesize.']['link'] == 1) {
 				$stringFilesize .= $linkTag . sprintf($size, $filesize, $units[$j]) . '</a>';
@@ -619,10 +620,38 @@ class tx_mllinks_pi1 extends tslib_pibase {
 		
 
 		case "url":
-			if (isset($conf['external.'])) {
+			$settings = array();
+
+			if (isset($conf['externalDomain.'])) {
+				$domains = $conf['externalDomain.'];
+				if (count($domains)) {
+					reset($domains);
+
+					for ($i = 0; $i < count($domains); $i++, next($domains)) {
+						$settings = current($domains);
+
+						if (!isset($settings['domain'])) {
+							continue;
+						}
+						$domain = $settings['domain'];
+						unset($settings['domain']);
+
+						if (substr($url, 0, strlen($domain)) != $domain) {
+							$settings = array();
+						} else {
+							break;
+						}
+					}
+				}
+			}
+
+			if (isset($conf['external.']) && count($settings) == 0) {
 				$settings = $conf['external.'];
+			}
+
+			if (count($settings)) {
 				ksort($settings);
-				reset ($settings);
+				reset($settings);
 	
 				for ($i = 0; $i < count($settings); $i++, next($settings)) {
 					$data = current($settings);

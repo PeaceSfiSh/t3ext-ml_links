@@ -36,7 +36,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'_md5_values_when_last_written' => 'a:14:{s:12:"ext_icon.gif";s:4:"8319";s:17:"ext_localconf.php";s:4:"f00c";s:24:"ext_typoscript_setup.txt";s:4:"e4e7";s:16:"icon_default.gif";s:4:"475a";s:12:"icon_doc.gif";s:4:"b0e2";s:14:"icon_error.gif";s:4:"cf8e";s:14:"icon_globe.gif";s:4:"5d5f";s:15:"icon_mailto.gif";s:4:"bab3";s:12:"icon_pdf.gif";s:4:"82b8";s:12:"icon_ppt.gif";s:4:"c8b5";s:16:"icon_warning.gif";s:4:"dfa6";s:12:"icon_xls.gif";s:4:"8d34";s:14:"doc/manual.sxw";s:4:"c131";s:28:"pi1/class.tx_mllinks_pi1.php";s:4:"fdb4";}',
 	'constraints' => array(
 		'depends' => array(
-			'typo3' => '3.5.0-4.2.99',
+			'typo3' => '3.5.0-4.3.99',
 		),
 		'conflicts' => array(
 		),
