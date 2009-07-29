@@ -1,0 +1,5 @@
+tt_content.text.20.parseFunc.tags.link.typolink.userFunc = tx_mllinks_pi1->getFiletype
+tt_content.text.20.parseFunc.tags.link.postUserFunc = tx_mllinks_pi1->main
+
+tt_content.text.20.parseFunc.tags.typolist.default.parseFunc.tags.link.typolink.userFunc = tx_mllinks_pi1->getFiletype
+tt_content.text.20.parseFunc.tags.typolist.default.parseFunc.tags.link.postUserFunc = tx_mllinks_pi1->main
