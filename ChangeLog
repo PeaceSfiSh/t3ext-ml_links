@@ -1,0 +1,3 @@
+2009-08-28  Xavier Perseguers  <typo3@perseguers.ch>
+
+	* Fixed bug #1535: Regexp of insertLinkText is invalid (Thanks to Ivan Dharma Kartolo)

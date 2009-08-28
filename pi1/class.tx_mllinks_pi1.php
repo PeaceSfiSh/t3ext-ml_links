@@ -143,7 +143,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 					// Insert url if necessary
 				if (eregi('##linkTag##', $params)) {
-					$title = str_replace('##linkTag##', $url, $params);	
+					$params = str_replace('##linkTag##', $url, $params);
 				}
 						
 				$expr = '^.*(<a.*)(>.*)$';
@@ -203,8 +203,8 @@ class tx_mllinks_pi1 extends tslib_pibase {
 				}
 			}
 
-			$expr = '^.*<a.*>(.*)</a>.*$';
-			ereg($expr, $content, $parts);
+			$expr = '/<a.+?>(.*)(<\/a>)/';
+			preg_match($expr, $content, $parts);
 			$linkText .= $parts[1];
 		}
 		
