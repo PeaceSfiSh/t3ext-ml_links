@@ -224,6 +224,8 @@ class tx_mllinks_pi1 extends tslib_pibase {
 			$closingATag .= '</a>';
 		}
 
+		$this->buildLink = true;
+
 		return $closingATag;
 	}
 
