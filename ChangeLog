@@ -1,6 +1,6 @@
 2009-09-04  Xavier Perseguers  <typo3@perseguers.ch>
 
-	* Fixed bug #4416: openingATag.params are ignore (Thanks to Thomas Buss)
+	* Fixed bug #4416: openingATag.params are ignored (Thanks to Thomas Buss)
 
 2009-08-28  Xavier Perseguers  <typo3@perseguers.ch>
 
