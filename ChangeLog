@@ -1,3 +1,7 @@
+2009-12-06  Xavier Perseguers  <typo3@perseguers.ch>
+
+	* Bug #4373: Replaced deprecated "ereg" calls
+
 2009-09-04  Xavier Perseguers  <typo3@perseguers.ch>
 
 	* Fixed bug #4416: openingATag.params are ignored (Thanks to Thomas Buss)

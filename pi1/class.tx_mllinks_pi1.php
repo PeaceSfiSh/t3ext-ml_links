@@ -102,13 +102,13 @@ class tx_mllinks_pi1 extends tslib_pibase {
 			if (isset($data['linkTag.']['title']) && !empty($data['linkTag.']['title'])) {
 				$title = $data['linkTag.']['title'];
 
-				if (eregi('##linkTag##', $title)) {
+				if (preg_match('/##linkTag##/i', $title)) {
 					$title = str_replace('##linkTag##', $url, $title);	
 				}
 				
-				if (!eregi('title', $content)) {
-					$expr = '^.*(<a.*)(>.*</a>.*)$';
-					ereg($expr, $content, $parts);
+				if (!preg_match('/title/i', $content)) {
+					$expr = '|^.*(<a.*)(>.*</a>.*)$|';
+					preg_match($expr, $content, $parts);
 					$link .= $parts[1] . ' title="' . $title . '" ' . $parts[2];
 				} else {
 					$link .= $content;
@@ -142,12 +142,12 @@ class tx_mllinks_pi1 extends tslib_pibase {
 				$params = $data['openingATag.']['params'];
 
 					// Insert url if necessary
-				if (eregi('##linkTag##', $params)) {
+				if (preg_match('/##linkTag##/i', $params)) {
 					$params = str_replace('##linkTag##', $url, $params);
 				}
 						
-				$expr = '^.*(<a.*)(>.*)$';
-				ereg($expr, $openingATag, $parts);
+				$expr = '/^.*(<a.*)(>.*)$/';
+				preg_match($expr, $openingATag, $parts);
 				$openingATag = $parts[1] . ' ' . $params . ' ' . $parts[2];
 			}
 
@@ -155,11 +155,11 @@ class tx_mllinks_pi1 extends tslib_pibase {
 			if (isset($data['openingATag.']['target']) && !empty($data['openingATag.']['target'])) {
 				$target = $data['openingATag.']['target'];
 
-				if ($openingATag != ($str = ereg_replace('target="[^"]*"', 'target="'.$target.'"', $openingATag))) {
+				if ($openingATag != ($str = preg_replace('/target="[^"]*"/', 'target="' . $target . '"', $openingATag))) {
 					$openingATag = $str;
 				} else {
-					$expr = '^.*(<a.*)(>.*)$';
-					ereg($expr, $openingATag, $parts);
+					$expr = '/^.*(<a.*)(>.*)$/';
+					preg_match($expr, $openingATag, $parts);
 					$openingATag = $parts[1] . ' target="' . $target . '" ' . $parts[2];
 				}
 			}
@@ -169,13 +169,13 @@ class tx_mllinks_pi1 extends tslib_pibase {
 				$title = $data['openingATag.']['title'];
 
 					// Insert url if necessary
-				if (eregi('##linkTag##', $title)) {
+				if (preg_match('/##linkTag##/i', $title)) {
 					$title = str_replace('##linkTag##', $url, $title);	
 				}
 						
-				if (!eregi('title', $openingATag)) {
-					$expr = '^.*(<a.*)(>.*)$';
-					ereg($expr, $openingATag, $parts);
+				if (!preg_match('/title/i', $openingATag)) {
+					$expr = '/^.*(<a.*)(>.*)$/';
+					preg_match($expr, $openingATag, $parts);
 					$openingATag = $parts[1] . ' title="' . $title . '"' . $parts[2];
 				}
 			}
@@ -647,7 +647,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 							
 								// Get filetype
 							$file = basename($url);
-							if (ereg('(.*)\.([^\.]*$)', $file, $reg)) {
+							if (preg_match('/(.*)\.([^\.]*$)/', $file, $reg)) {
 								$ext = strtolower($reg[2]);
 								$ext = ($ext === 'jpeg') ? 'jpg' : $ext;
 							}
@@ -725,7 +725,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 			// Get file extension
 		$file = basename($content['url']);
-		if (ereg('(.*)\.([^\.]*$)', $file,$reg))  {
+		if (preg_match('/(.*)\.([^\.]*$)/', $file, $reg)) {
 			$ext = strtolower($reg[2]);
 			$ext = ($ext === 'jpeg') ? 'jpg' : $ext;
 		}
