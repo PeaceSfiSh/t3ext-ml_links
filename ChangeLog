@@ -1,5 +1,6 @@
 2009-12-06  Xavier Perseguers  <typo3@perseguers.ch>
 
+	* Fixed bug #5489: No rendering of filesize when not logged in BE
 	* Bug #4373: Replaced deprecated "ereg" calls
 
 2009-09-04  Xavier Perseguers  <typo3@perseguers.ch>

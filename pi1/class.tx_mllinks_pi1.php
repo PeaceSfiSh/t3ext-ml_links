@@ -238,9 +238,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	 * @return string
 	 */
 	protected function insertFilesize($data, $url, $linkTag) {
-		if ($GLOBALS['LANG'] == null) return;
-		$GLOBALS['LANG']->includeLLFile('EXT:ml_links/pi1/locallang.xml');
-	 	$stringFilesize = '';
+		$stringFilesize = '';
 
 		if (($data['filesize'] == 1) && file_exists($url)) {
 			if (!empty($this->tag)) {
@@ -252,11 +250,11 @@ class tx_mllinks_pi1 extends tslib_pibase {
 			}
 
 			$units = array(
-				'0' => $GLOBALS['LANG']->getLL('bytes'),
-				'1' => $GLOBALS['LANG']->getLL('KB'),
-				'2' => $GLOBALS['LANG']->getLL('MB'),
-				'3' => $GLOBALS['LANG']->getLL('GB'),
-				'4' => $GLOBALS['LANG']->getLL('TB'),
+				'0' => $this->pi_getLL('bytes'),
+				'1' => $this->pi_getLL('KB'),
+				'2' => $this->pi_getLL('MB'),
+				'3' => $this->pi_getLL('GB'),
+				'4' => $this->pi_getLL('TB'),
 			);
 			
 			$j = 0;
@@ -398,6 +396,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	 * @return string
 	 */
 	public function main($content,$conf) {
+		$this->pi_loadLL();
 
 			// Get configuration
 		$conf = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_mllinks_pi1.'];
@@ -419,8 +418,8 @@ class tx_mllinks_pi1 extends tslib_pibase {
 				if (isset($conf[$fileType . '.']) && file_exists($url)) {
 					$settings = $conf[$fileType . '.'];
 					ksort($settings);
-					
-					foreach ($settings as $data) {	
+
+					foreach ($settings as $data) {
 						switch (key($data)) {
 							case 'image':
 								$this->tag .= $this->insertImage($data, $linkTag);
