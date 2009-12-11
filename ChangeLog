@@ -1,3 +1,8 @@
+2009-12-11  Xavier Perseguers  <typo3@perseguers.ch>
+
+	* Raised version to 1.0.1
+	* New release to TER
+
 2009-12-06  Xavier Perseguers  <typo3@perseguers.ch>
 
 	* Fixed bug #5489: No rendering of filesize when not logged in BE
