@@ -1,3 +1,8 @@
+2010-01-08  Xavier Perseguers  <typo3@perseguers.ch>
+
+	* Moved icons to res/ as stated in documentation (Thanks to Georg Ringer)
+	* Updated compatibility version
+
 2009-12-11  Xavier Perseguers  <typo3@perseguers.ch>
 
 	* Raised version to 1.0.1
