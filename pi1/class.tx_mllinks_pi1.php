@@ -25,13 +25,19 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+require_once(PATH_tslib . 'class.tslib_pibase.php');
+
 /**
  * Plugin 'Extended links' for the 'ml_links' extension.
  *
- * @author  Xavier Perseguers <typo3@perseguers.ch>
- * @author	Markus Friedrich <markus.friedrich@media-lights.de>
+ * @category    Plugin
+ * @package     TYPO3
+ * @subpackage  tx_mllinks
+ * @author      Xavier Perseguers <typo3@perseguers.ch>
+ * @author      Markus Friedrich <markus.friedrich@media-lights.de>
+ * @license     http://www.gnu.org/copyleft/gpl.html
+ * @version     SVN: $Id$
  */
-require_once(PATH_tslib . 'class.tslib_pibase.php');
 
 class tx_mllinks_pi1 extends tslib_pibase {
 	var $prefixId = 'tx_mllinks_pi1';
