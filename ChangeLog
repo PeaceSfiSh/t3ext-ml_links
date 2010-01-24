@@ -1,3 +1,8 @@
+2010-01-24  Xavier Perseguers  <typo3@perseguers.ch>
+
+	* Added static TS containing default configuration for common filetypes
+	* Added lots of icons
+
 2010-01-08  Xavier Perseguers  <typo3@perseguers.ch>
 
 	* Moved icons to res/ as stated in documentation (Thanks to Georg Ringer)
