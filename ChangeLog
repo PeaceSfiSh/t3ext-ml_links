@@ -1,5 +1,10 @@
 2010-01-24  Xavier Perseguers  <typo3@perseguers.ch>
 
+	* Raised version to 1.1.0
+	* Release to TER
+
+2010-01-24  Xavier Perseguers  <typo3@perseguers.ch>
+
 	* Added static TS containing default configuration for common filetypes
 	* Added lots of icons
 
