@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2009 Xavier Perseguers (typo3@perseguers.ch)
+*  (c) 2009-2010 Xavier Perseguers (typo3@perseguers.ch)
 *  All rights reserved
 *
 *  (c) 2006-2008 Markus Friedrich (markus.friedrich@media-lights.de)
@@ -42,6 +42,331 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	var $separator = ' ';
 
 	/**
+	 * Goes through config and design the link layout
+	 * 
+	 * @param string $content
+	 * @param array $conf
+	 * @return string
+	 */
+	public function main($content,$conf) {
+		$this->pi_loadLL();
+
+			// Get configuration
+		$conf = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_mllinks_pi1.'];
+
+		$fileType = $GLOBALS['TSFE']->register['fileType'];
+		$linkType = $GLOBALS['TSFE']->register['linkType'];
+		$linkTag = $GLOBALS['TSFE']->register['tag'];
+		$url = urldecode($GLOBALS['TSFE']->register['url']);
+
+			// Use given seperator
+		if (isset($conf['separator'])) {
+			$this->separator = $conf['separator'];
+		}
+
+			// Go through configuration and modify the link
+		switch ($linkType) {
+			case 'file':
+					// Check if there is anything defined for this filetype and if the file exists
+				if (isset($conf[$fileType . '.']) && file_exists($url)) {
+					$settings = $conf[$fileType . '.'];
+					ksort($settings);
+
+					foreach ($settings as $data) {
+						switch (key($data)) {
+							case 'image':
+								$this->tag .= $this->insertImage($data, $linkTag);
+								break;
+
+							case 'linkTag':
+								$this->tag .= $this->insertLink($data, $content, $url);
+								break;
+
+							case 'openingATag':
+			 					$this->tag .= $this->insertOpeningATag($data, $linkTag, $url);
+								break;
+
+							case 'linkText':
+								$this->tag .= $this->insertLinkText($data, $content);
+								break;
+
+							case 'closingATag':
+			 					$this->tag .= $this->insertClosingATag ($data);
+								break;
+
+							case 'filename':
+			 					$this->tag .= $this->insertFilename($data, $url);
+								break;
+
+							case 'revisionDate':
+			 					$this->tag .= $this->insertRevisionDate($data, $url);
+								break;
+
+							case 'filesize':
+			 					$this->tag .= $this->insertFilesize($data, $url, $linkTag);
+								break;
+
+							case 'dimensions':
+			 					$this->tag .= $this->insertDimensions($data, $url);
+								break;
+
+							case 'string':
+			 					$this->tag .= $this->insertString($data, $linkTag);
+								break;
+						}
+					}
+				}
+
+					// Check if there are any default settings and if the file exists
+				elseif (isset($conf['default.']) && file_exists($url)) {
+					$settings = $conf['default.'];
+					ksort($settings);
+
+					foreach ($settings as $data) {
+						switch (key($data)) {
+							case 'image':
+								$this->tag .= $this->insertImage($data, $linkTag);
+								break;
+
+							case 'linkTag':
+								$this->tag .= $this->insertLink($data, $content, $url);
+								break;
+
+							case 'openingATag':
+			 					$this->tag .= $this->insertOpeningATag($data, $linkTag, $url);
+								break;
+
+							case 'linkText':
+								$this->tag .= $this->insertLinkText($data, $content);
+								break;
+
+							case 'closingATag':
+			 					$this->tag .= $this->insertClosingATag($data);
+								break;
+
+							case 'filename':
+			 					$this->tag .= $this->insertFilename($data, $url);
+								break;
+
+							case 'revisionDate':
+			 					$this->tag .= $this->insertRevisionDate($data, $url);
+								break;
+
+							case 'filesize':
+			 					$this->tag .= $this->insertFilesize($data, $url, $linkTag);
+								break;
+
+							case 'string':
+			 					$this->tag .= $this->insertString($data, $linkTag);
+								break;
+						}
+					}
+				}
+
+					// Check if there are anysettings if the file doesn't exist
+				elseif (!file_exists($url) && isset($conf['notFound.'])) {
+					$settings = $conf['notFound.'];
+					ksort($settings);
+
+					foreach ($settings as $data) {
+						switch (key($data)) {
+							case 'image':
+								$this->tag .= $this->insertImage($data, $linkTag);
+								break;
+
+							case 'string':
+			 					$this->tag .= $this->insertString($data, $linkTag);
+								break;
+
+							case 'linkText':
+								$this->tag .= $this->insertLinkText($data, $content);
+								break;
+
+							case 'linkTag':
+								$this->tag .= $this->insertLink($data, $content, $url);
+								break;
+						}
+					}
+				}
+				break;
+
+			case 'mailto':
+				if (isset($conf['mailto.'])) {
+					$settings = $conf['mailto.'];
+					ksort($settings);
+
+					foreach ($settings as $data) {
+						switch (key($data)) {
+							case 'image':
+								$this->tag .= $this->insertImage($data, $linkTag);
+								break;
+
+							case 'linkTag':
+								$this->tag .= $this->insertLink($data, $content, $url);
+								break;
+
+							case 'openingATag':
+			 					$this->tag .= $this->insertOpeningATag($data, $linkTag, $url);
+								break;
+
+							case 'linkText':
+								$this->tag .= $this->insertLinkText($data, $content);
+								break;
+
+							case 'closingATag':
+			 					$this->tag .= $this->insertClosingATag($data);
+								break;
+
+							case 'string':
+			 					$this->tag .= $this->insertString($data, $linkTag);
+								break;
+						}
+					}
+				}
+				break;
+
+			case 'page':
+			if (isset($conf['internal.'])) {
+				$settings = $conf['internal.'];
+				ksort($settings);
+
+				foreach ($settings as $data) {
+					switch (key($data)) {
+						case 'image':
+							$this->tag .= $this->insertImage($data, $linkTag);
+							break;
+
+						case 'linkTag':
+							$this->tag .= $this->insertLink($data, $content, $url);
+							break;
+
+						case 'openingATag':
+		 					$this->tag .= $this->insertOpeningATag($data, $linkTag, $url);
+							break;
+
+						case 'linkText':
+							$this->tag .= $this->insertLinkText($data, $content);
+							break;
+
+						case 'closingATag':
+		 					$this->tag .= $this->insertClosingATag($data);
+							break;
+
+						case 'string':
+		 					$this->tag .= $this->insertString($data, $linkTag);
+							break;
+					}
+				}
+			}
+			break;
+
+		case 'url':
+			$settings = array();
+
+			if (isset($conf['externalDomain.'])) {
+				$domains = $conf['externalDomain.'];
+
+				if (count($domains)) {
+					foreach ($domains as $settings) {
+						if (!isset($settings['domain'])) {
+							continue;
+						}
+						$domain = $settings['domain'];
+						unset($settings['domain']);
+
+						if (substr($url, 0, strlen($domain)) != $domain) {
+							$settings = array();
+						} else {
+							break;
+						}
+					}
+				}
+			}
+
+			if (isset($conf['external.']) && count($settings) == 0) {
+				$settings = $conf['external.'];
+			}
+
+			if (count($settings)) {
+				ksort($settings);
+
+				foreach ($settings as $data) {
+					switch (key($data)) {
+						case 'image':
+							if (!empty($this->tag)) {
+								$this->tag .= $this->separator;
+							}
+
+								// Get filetype
+							$file = basename($url);
+							if (preg_match('/(.*)\.([^\.]*$)/', $file, $reg)) {
+								$ext = strtolower($reg[2]);
+								$ext = ($ext === 'jpeg') ? 'jpg' : $ext;
+							}
+
+								// Add image
+							if (isset($data['image.'][$ext]) && file_exists($data['image.'][$ext])) {
+								if (isset($data['image.'][$ext]['alt'])) {
+									$imageTag = '<img src="' . $data['image.'][$ext] . '" alt="' . $data['image.'][$ext]['alt'] . '"/>';
+								} else {
+									$imageTag = '<img src="' . $data['image.'][$ext] . '" />';
+								}
+							} elseif (file_exists($data['image'])) {
+								if (isset($data['image.']['alt'])) {
+									$imageTag = '<img src="' . $data['image'] . '" alt="' . $data['image.']['alt'] . '"/>';
+								} else {
+									$imageTag = '<img src="' . $data['image'] . '" />';
+								}
+							}
+
+								// Add link if configured
+							if (isset($data['image.']['link']) && $data['image.']['link'] == 1) {
+								$this->tag .= $linkTag . $imageTag . '</a>';
+							} else {
+								$this->tag .= $imageTag;
+							}
+							$this->buildLink = true;
+							break;
+
+						case 'linkTag':
+							$this->tag .= $this->insertLink($data, $content, $url);
+							break;
+
+						case 'openingATag':
+		 					$this->tag .= $this->insertOpeningATag($data, $linkTag, $url);
+							break;
+
+						case 'linkText':
+							$this->tag .= $this->insertLinkText($data, $content);
+							break;
+
+						case 'closingATag':
+		 					$this->tag .= $this->insertClosingATag($data);
+							break;
+
+						case 'string':
+		 					$this->tag .= $this->insertString($data, $linkTag);
+							break;
+					}
+				}
+			}
+			break;
+		}
+
+			// Delete temp variables
+		unset($GLOBALS['TSFE']->register['fileType']);
+		unset($GLOBALS['TSFE']->register['linkType']);
+		unset($GLOBALS['TSFE']->register['tag']);
+		unset($GLOBALS['TSFE']->register['url']);
+
+		if (!$this->buildLink) {
+			$this->tag = $content;
+		}
+
+		return $this->tag;
+	}
+
+	/**
 	 * Adds an image.
 	 * 
 	 * @param array $data
@@ -59,7 +384,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 					$img .= $this->separator;
 				}
 			}
-				
+
 			if (isset($data['image.']['link']) && $data['image.']['link'] == 1) {
 				if (isset($data['image.']['alt'])) {
 					$img .= $linkTag . '<img src="' . $data['image'] . '" alt="' . $data['image.']['alt'] . '" /></a>';
@@ -105,7 +430,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 				if (preg_match('/##linkTag##/i', $title)) {
 					$title = str_replace('##linkTag##', $url, $title);	
 				}
-				
+
 				if (!preg_match('/title/i', $content)) {
 					$expr = '|^.*(<a.*)(>.*</a>.*)$|';
 					preg_match($expr, $content, $parts);
@@ -119,7 +444,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 			$this->buildLink = true;
 		}
-		
+
 		return $link;
 	}
 
@@ -145,7 +470,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 				if (preg_match('/##linkTag##/i', $params)) {
 					$params = str_replace('##linkTag##', $url, $params);
 				}
-						
+
 				$expr = '/^.*(<a.*)(>.*)$/';
 				preg_match($expr, $openingATag, $parts);
 				$openingATag = $parts[1] . ' ' . $params . ' ' . $parts[2];
@@ -163,7 +488,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 					$openingATag = $parts[1] . ' target="' . $target . '" ' . $parts[2];
 				}
 			}
-			
+
 				// Insert given title except a title is already set
 			if (isset($data['openingATag.']['title']) && !empty($data['openingATag.']['title'])) {
 				$title = $data['openingATag.']['title'];
@@ -172,7 +497,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 				if (preg_match('/##linkTag##/i', $title)) {
 					$title = str_replace('##linkTag##', $url, $title);	
 				}
-						
+
 				if (!preg_match('/title/i', $openingATag)) {
 					$expr = '/^.*(<a.*)(>.*)$/';
 					preg_match($expr, $openingATag, $parts);
@@ -207,7 +532,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 			preg_match($expr, $content, $parts);
 			$linkText .= $parts[1];
 		}
-		
+
 		return $linkText;
 	}
 
@@ -256,7 +581,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 				'3' => $this->pi_getLL('GB'),
 				'4' => $this->pi_getLL('TB'),
 			);
-			
+
 			$j = 0;
 			$filesize = filesize($url);
 			for ($j = 0; $filesize >= 1024; $j++) {
@@ -303,10 +628,10 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 			$this->buildLink = true;
 		}
-		
+
 		return $dimensions;
 	}
-	
+
 	/**
 	 * Adds the filename.
 	 * 
@@ -342,7 +667,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	 */
 	protected function insertRevisionDate($data, $url) {
 		$date = '';
-	
+
 		if ($data['revisionDate'] == 1 && file_exists($url)) {
 			if (!empty($this->tag)) {
 				if (isset($data['separator'])) {
@@ -356,7 +681,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 			if (isset($data['revisionDate.']['format'])) {
 				$format = $data['revisionDate.']['format'];
 			}
-			
+
 			$date .= strftime ($format, filemtime($url));
 			$this->buildLink = true;
 		}
@@ -386,331 +711,6 @@ class tx_mllinks_pi1 extends tslib_pibase {
 		$this->buildLink = true;
 
 		return $string;
-	}
-	
-	/**
-	 * Goes through config and design the link layout
-	 * 
-	 * @param string $content
-	 * @param array $conf
-	 * @return string
-	 */
-	public function main($content,$conf) {
-		$this->pi_loadLL();
-
-			// Get configuration
-		$conf = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_mllinks_pi1.'];
-
-		$fileType = $GLOBALS['TSFE']->register['fileType'];
-		$linkType = $GLOBALS['TSFE']->register['linkType'];
-		$linkTag = $GLOBALS['TSFE']->register['tag'];
-		$url = urldecode($GLOBALS['TSFE']->register['url']);
-
-			// Use given seperator
-		if (isset($conf['separator'])) {
-			$this->separator = $conf['separator'];
-		}
-
-			// Go through configuration and modify the link
-		switch ($linkType) {
-			case 'file':
-					// Check if there is anything defined for this filetype and if the file exists
-				if (isset($conf[$fileType . '.']) && file_exists($url)) {
-					$settings = $conf[$fileType . '.'];
-					ksort($settings);
-
-					foreach ($settings as $data) {
-						switch (key($data)) {
-							case 'image':
-								$this->tag .= $this->insertImage($data, $linkTag);
-								break;
-		
-							case 'linkTag':
-								$this->tag .= $this->insertLink($data, $content, $url);
-								break;
-		
-							case 'openingATag':
-			 					$this->tag .= $this->insertOpeningATag($data, $linkTag, $url);
-								break;
-		
-							case 'linkText':
-								$this->tag .= $this->insertLinkText($data, $content);
-								break;
-							
-							case 'closingATag':
-			 					$this->tag .= $this->insertClosingATag ($data);
-								break;
-		
-							case 'filename':
-			 					$this->tag .= $this->insertFilename($data, $url);
-								break;
-		
-							case 'revisionDate':
-			 					$this->tag .= $this->insertRevisionDate($data, $url);
-								break;
-		
-							case 'filesize':
-			 					$this->tag .= $this->insertFilesize($data, $url, $linkTag);
-								break;
-		
-							case 'dimensions':
-			 					$this->tag .= $this->insertDimensions($data, $url);
-								break;
-		
-							case 'string':
-			 					$this->tag .= $this->insertString($data, $linkTag);
-								break;
-						}
-					}
-				}
-				
-					// Check if there are any default settings and if the file exists
-				elseif (isset($conf['default.']) && file_exists($url)) {
-					$settings = $conf['default.'];
-					ksort($settings);
-					
-					foreach ($settings as $data) {
-						switch (key($data)) {
-							case 'image':
-								$this->tag .= $this->insertImage($data, $linkTag);
-								break;
-		
-							case 'linkTag':
-								$this->tag .= $this->insertLink($data, $content, $url);
-								break;
-		
-							case 'openingATag':
-			 					$this->tag .= $this->insertOpeningATag($data, $linkTag, $url);
-								break;
-		
-							case 'linkText':
-								$this->tag .= $this->insertLinkText($data, $content);
-								break;
-							
-							case 'closingATag':
-			 					$this->tag .= $this->insertClosingATag($data);
-								break;
-		
-							case 'filename':
-			 					$this->tag .= $this->insertFilename($data, $url);
-								break;
-		
-							case 'revisionDate':
-			 					$this->tag .= $this->insertRevisionDate($data, $url);
-								break;
-		
-							case 'filesize':
-			 					$this->tag .= $this->insertFilesize($data, $url, $linkTag);
-								break;
-		
-							case 'string':
-			 					$this->tag .= $this->insertString($data, $linkTag);
-								break;
-						}
-					}
-				}
-				
-					// Check if there are anysettings if the file doesn't exist
-				elseif (!file_exists($url) && isset($conf['notFound.'])) {
-					$settings = $conf['notFound.'];
-					ksort($settings);
-					
-					foreach ($settings as $data) {
-						switch (key($data)) {
-							case 'image':
-								$this->tag .= $this->insertImage($data, $linkTag);
-								break;
-		
-							case 'string':
-			 					$this->tag .= $this->insertString($data, $linkTag);
-								break;
-		
-							case 'linkText':
-								$this->tag .= $this->insertLinkText($data, $content);
-								break;
-		
-							case 'linkTag':
-								$this->tag .= $this->insertLink($data, $content, $url);
-								break;
-						}
-					}
-				}
-				break;
-			
-			case 'mailto':
-				if (isset($conf['mailto.'])) {
-					$settings = $conf['mailto.'];
-					ksort($settings);
-					
-					foreach ($settings as $data) {
-						switch (key($data)) {
-							case 'image':
-								$this->tag .= $this->insertImage($data, $linkTag);
-								break;
-			
-							case 'linkTag':
-								$this->tag .= $this->insertLink($data, $content, $url);
-								break;
-		
-							case 'openingATag':
-			 					$this->tag .= $this->insertOpeningATag($data, $linkTag, $url);
-								break;
-		
-							case 'linkText':
-								$this->tag .= $this->insertLinkText($data, $content);
-								break;
-							
-							case 'closingATag':
-			 					$this->tag .= $this->insertClosingATag($data);
-								break;
-			
-							case 'string':
-			 					$this->tag .= $this->insertString($data, $linkTag);
-								break;
-						}
-					}
-				}
-				break;
-		
-			case 'page':
-			if (isset($conf['internal.'])) {
-				$settings = $conf['internal.'];
-				ksort($settings);
-				
-				foreach ($settings as $data) {
-					switch (key($data)) {
-						case 'image':
-							$this->tag .= $this->insertImage($data, $linkTag);
-							break;
-		
-						case 'linkTag':
-							$this->tag .= $this->insertLink($data, $content, $url);
-							break;
-	
-						case 'openingATag':
-		 					$this->tag .= $this->insertOpeningATag($data, $linkTag, $url);
-							break;
-	
-						case 'linkText':
-							$this->tag .= $this->insertLinkText($data, $content);
-							break;
-						
-						case 'closingATag':
-		 					$this->tag .= $this->insertClosingATag($data);
-							break;
-		
-						case 'string':
-		 					$this->tag .= $this->insertString($data, $linkTag);
-							break;
-					}
-				}
-			}
-			break;
-		
-		case 'url':
-			$settings = array();
-
-			if (isset($conf['externalDomain.'])) {
-				$domains = $conf['externalDomain.'];
-				
-				if (count($domains)) {
-					foreach ($domains as $settings) {
-						if (!isset($settings['domain'])) {
-							continue;
-						}
-						$domain = $settings['domain'];
-						unset($settings['domain']);
-
-						if (substr($url, 0, strlen($domain)) != $domain) {
-							$settings = array();
-						} else {
-							break;
-						}
-					}
-				}
-			}
-
-			if (isset($conf['external.']) && count($settings) == 0) {
-				$settings = $conf['external.'];
-			}
-
-			if (count($settings)) {
-				ksort($settings);
-				
-				foreach ($settings as $data) {
-					switch (key($data)) {
-						case 'image':
-							if (!empty($this->tag)) {
-								$this->tag .= $this->separator;
-							}
-							
-								// Get filetype
-							$file = basename($url);
-							if (preg_match('/(.*)\.([^\.]*$)/', $file, $reg)) {
-								$ext = strtolower($reg[2]);
-								$ext = ($ext === 'jpeg') ? 'jpg' : $ext;
-							}
-	
-								// Add image
-							if (isset($data['image.'][$ext]) && file_exists($data['image.'][$ext])) {
-								if (isset($data['image.'][$ext]['alt'])) {
-									$imageTag = '<img src="' . $data['image.'][$ext] . '" alt="' . $data['image.'][$ext]['alt'] . '"/>';
-								} else {
-									$imageTag = '<img src="' . $data['image.'][$ext] . '" />';
-								}
-							} elseif (file_exists($data['image'])) {
-								if (isset($data['image.']['alt'])) {
-									$imageTag = '<img src="' . $data['image'] . '" alt="' . $data['image.']['alt'] . '"/>';
-								} else {
-									$imageTag = '<img src="' . $data['image'] . '" />';
-								}
-							}
-						
-								// Add link if configured
-							if (isset($data['image.']['link']) && $data['image.']['link'] == 1) {
-								$this->tag .= $linkTag . $imageTag . '</a>';
-							} else {
-								$this->tag .= $imageTag;
-							}
-							$this->buildLink = true;
-							break;
-		
-						case 'linkTag':
-							$this->tag .= $this->insertLink($data, $content, $url);
-							break;
-	
-						case 'openingATag':
-		 					$this->tag .= $this->insertOpeningATag($data, $linkTag, $url);
-							break;
-	
-						case 'linkText':
-							$this->tag .= $this->insertLinkText($data, $content);
-							break;
-						
-						case 'closingATag':
-		 					$this->tag .= $this->insertClosingATag($data);
-							break;
-		
-						case 'string':
-		 					$this->tag .= $this->insertString($data, $linkTag);
-							break;
-					}
-				}
-			}
-			break;
-		}
-
-			// Delete temp variables
-		unset($GLOBALS['TSFE']->register['fileType']);
-		unset($GLOBALS['TSFE']->register['linkType']);
-		unset($GLOBALS['TSFE']->register['tag']);
-		unset($GLOBALS['TSFE']->register['url']);
-
-		if (!$this->buildLink) {
-			$this->tag = $content;
-		}
-		
-		return $this->tag;
 	}
 
 	/**
