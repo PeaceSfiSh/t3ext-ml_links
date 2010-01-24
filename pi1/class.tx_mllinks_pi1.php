@@ -434,7 +434,16 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	protected function insertImage(array $data, $linkTag) {
 	 	$img = '';
 
-		if (file_exists($data['image'])) {
+	 	$image = $data['image'];
+	 	if (!strcmp(substr($image, 0, 4), 'EXT:')) {
+	 			// Get rid of 'EXT:'
+	 		$image = substr($image, 4);
+	 		list($ext, $path) = explode('/', $image, 2);
+	 		$extRelPath = substr(t3lib_extMgm::extPath($ext), strlen(PATH_site));
+	 		$image = $extRelPath . $path;
+	 	}
+
+		if (file_exists($image)) {
 			if (!empty($this->tag)) {
 				if (isset($data['separator'])) {
 					$img .= $data['separator'];
@@ -445,15 +454,15 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 			if (isset($data['image.']['link']) && $data['image.']['link'] == 1) {
 				if (isset($data['image.']['alt'])) {
-					$img .= $linkTag . '<img src="' . $data['image'] . '" alt="' . $data['image.']['alt'] . '" /></a>';
+					$img .= $linkTag . '<img src="' . $image . '" alt="' . $data['image.']['alt'] . '" /></a>';
 				} else {
-					$img .= $linkTag . '<img src="' . $data['image'] . '" /></a>';
+					$img .= $linkTag . '<img src="' . $image . '" alt="" /></a>';
 				}
 			} else {
 				if (isset($data['image.']['alt'])) {
-					$img .= '<img src="' . $data['image'] . '" alt="' . $data['image.']['alt'] . '" />';
+					$img .= '<img src="' . $image . '" alt="' . $data['image.']['alt'] . '" />';
 				} else {
-					$img .= '<img src="' . $data['image'] . '" />';
+					$img .= '<img src="' . $image . '" alt="" />';
 				}
 			}
 			$this->buildLink = true;
