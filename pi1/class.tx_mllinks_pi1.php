@@ -205,7 +205,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 			}
 		}
 
-			// Check if there are anysettings if the file doesn't exist
+			// Check if there are any settings if the file doesn't exist
 		elseif (!file_exists($url) && isset($this->conf['notFound.'])) {
 			$settings = $this->conf['notFound.'];
 			ksort($settings);
