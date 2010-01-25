@@ -377,19 +377,21 @@ class tx_mllinks_pi1 extends tslib_pibase {
 						}
 
 							// Add image
-						if (isset($data['image.'][$ext]) && file_exists($data['image.'][$ext])) {
-							if (isset($data['image.'][$ext]['alt'])) {
-								$imageTag = '<img src="' . $data['image.'][$ext] . '" alt="' . $data['image.'][$ext]['alt'] . '"/>';
-							} else {
-								$imageTag = '<img src="' . $data['image.'][$ext] . '" />';
-							}
-						} elseif (file_exists($data['image'])) {
-							if (isset($data['image.']['alt'])) {
-								$imageTag = '<img src="' . $data['image'] . '" alt="' . $data['image.']['alt'] . '"/>';
-							} else {
-								$imageTag = '<img src="' . $data['image'] . '" />';
-							}
+						if (isset($data['image.'][$ext])) {
+							$image = $data['image.'][$ext];
+							$alt = isset($data['image.'][$ext]['alt']) ? $data['image.'][$ext]['alt'] : '';
+						} else {
+							$image = $data['image'];
+							$alt = isset($data['image.']['alt']) ? $data['image.']['alt'] : '';
 						}
+						if (!strcmp(substr($image, 0, 4), 'EXT:')) {
+								// Get rid of 'EXT:'
+							$image = substr($image, 4);
+							list($ext, $path) = explode('/', $image, 2);
+							$extRelPath = substr(t3lib_extMgm::extPath($ext), strlen(PATH_site));
+							$image = $extRelPath . $path;
+						}
+						$imageTag = file_exists($image) ? '<img src="' . $image . '" alt="' . $alt . '"/>' : '';
 
 							// Add link if configured
 						if (isset($data['image.']['link']) && $data['image.']['link'] == 1) {
