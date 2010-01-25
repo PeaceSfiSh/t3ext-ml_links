@@ -30,6 +30,9 @@ plugin.tx_mllinks_pi1 {
 		10.image.link = 0
 		20.linkTag = 1
 	}
+
+	external.10.image.doc = EXT:ml_links/Resources/Public/Icons/external/doc.png
+	external.10.image.pdf = EXT:ml_links/Resources/Public/Icons/external/pdf.png
 	
 	mailto {
 		10.image = EXT:ml_links/Resources/Public/Icons/mailto.gif
