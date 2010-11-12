@@ -40,9 +40,9 @@ require_once(PATH_tslib . 'class.tslib_pibase.php');
  */
 
 class tx_mllinks_pi1 extends tslib_pibase {
-	var $prefixId = 'tx_mllinks_pi1';
-	var $scriptRelPath = 'pi1/class.tx_mllinks_pi1.php';
-	var $extKey = 'ml_links';
+	public $prefixId = 'tx_mllinks_pi1';
+	public $scriptRelPath = 'pi1/class.tx_mllinks_pi1.php';
+	public $extKey = 'ml_links';
 	
 	protected $buildLink = false;
 	protected $separator;
