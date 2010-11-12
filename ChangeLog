@@ -1,3 +1,7 @@
+2010-10-13  Xavier Perseguers  <typo3@perseguers.ch>
+
+	* Fixed link support in bullet and enumerated lists (Thanks to Pierre Boivin)
+
 2010-10-11  Xavier Perseguers  <typo3@perseguers.ch>
 
 	* Raised version to 1.2.0
