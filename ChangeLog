@@ -1,5 +1,6 @@
 2011-03-02  Xavier Perseguers  <typo3@perseguers.ch>
 
+	* Raised version to 1.2.1
 	* Updated TYPO3 range support
 	* Added non-breaking spaces between size and unit in file size
 
