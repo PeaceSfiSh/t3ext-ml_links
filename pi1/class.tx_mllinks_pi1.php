@@ -43,13 +43,13 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	public $prefixId = 'tx_mllinks_pi1';
 	public $scriptRelPath = 'pi1/class.tx_mllinks_pi1.php';
 	public $extKey = 'ml_links';
-	
+
 	protected $buildLink = false;
 	protected $separator;
 
 	/**
 	 * Goes through config and design the link layout
-	 * 
+	 *
 	 * @param	string		$content
 	 * @param	array		$conf
 	 * @return	string
@@ -67,7 +67,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 			// Use given seperator
 		$this->separator = isset($this->conf['separator']) ? $this->conf['separator'] : ' ';
-		$this->tag = ''; 
+		$this->tag = '';
 
 			// Go through configuration and modify the link
 		switch ($linkType) {
@@ -100,7 +100,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 	/**
 	 * Prepares the tag for a link of type "file".
-	 * 
+	 *
 	 * @param	string		$content
 	 * @param	string		$fileType
 	 * @param	string		$linkType
@@ -234,7 +234,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 	/**
 	 * Prepares the tag for a link of type "mailto".
-	 * 
+	 *
 	 * @param	string		$content
 	 * @param	string		$fileType
 	 * @param	string		$linkType
@@ -279,7 +279,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 	/**
 	 * Prepares the tag for a link of type "page".
-	 * 
+	 *
 	 * @param	string		$content
 	 * @param	string		$fileType
 	 * @param	string		$linkType
@@ -324,7 +324,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 	/**
 	 * Prepares the tag for a link of type "url".
-	 * 
+	 *
 	 * @param	string		$content
 	 * @param	string		$fileType
 	 * @param	string		$linkType
@@ -428,10 +428,10 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 	/**
 	 * Adds an image.
-	 * 
+	 *
 	 * @param	array		$data
 	 * @param	string		$linkTag
-	 * @return	string 
+	 * @return	string
 	 */
 	protected function insertImage(array $data, $linkTag) {
 	 	$img = '';
@@ -475,11 +475,11 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 	/**
 	 * Adds a linktag.
-	 * 
+	 *
 	 * @param	array		$data
 	 * @param	string		$content
 	 * @param	string		$url
-	 * @return	string 
+	 * @return	string
 	 */
 	 protected function insertLink(array $data, $content, $url) {
 	 	$link = '';
@@ -497,7 +497,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 				$title = $data['linkTag.']['title'];
 
 				if (preg_match('/##linkTag##/i', $title)) {
-					$title = str_replace('##linkTag##', $url, $title);	
+					$title = str_replace('##linkTag##', $url, $title);
 				}
 
 				if (!preg_match('/title/i', $content)) {
@@ -519,7 +519,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 	/**
 	 * Adds an opening A-tag.
-	 * 
+	 *
 	 * @param	array		$data
 	 * @param	string		$linkTag
 	 * @param	string url
@@ -564,7 +564,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 					// Insert url if necessary
 				if (preg_match('/##linkTag##/i', $title)) {
-					$title = str_replace('##linkTag##', $url, $title);	
+					$title = str_replace('##linkTag##', $url, $title);
 				}
 
 				if (!preg_match('/title/i', $openingATag)) {
@@ -580,7 +580,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 	/**
 	 * Adds a link text.
-	 * 
+	 *
 	 * @param	array		$data
 	 * @param	string		$content
 	 * @return	string
@@ -607,7 +607,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 	/**
 	 * Adds a closing A-tag.
-	 * 
+	 *
 	 * @param	array		$data
 	 * @return	string
 	 */
@@ -625,7 +625,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 	/**
 	 * Adds the filesize.
-	 * 
+	 *
 	 * @param	array		$data
 	 * @param	string		$url
 	 * @param	string		$linkTag
@@ -659,7 +659,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 			$decimalPlaces = ($j < 2) ? 0 : $j - 1;
 
-			$size = '(%.' . $decimalPlaces . 'f %s)';
+			$size = '(%.' . $decimalPlaces . 'f&nbsp;%s)';
 			if (isset($data['filesize.']['link']) && $data['filesize.']['link'] == 1) {
 				$stringFilesize .= $linkTag . sprintf($size, $filesize, $units[$j]) . '</a>';
 			} else {
@@ -673,10 +673,10 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 	/**
 	 * Adds the dimensions.
-	 * 
+	 *
 	 * @param	array		$data
 	 * @param	string		$url
-	 * @return	string 
+	 * @return	string
 	 */
 	protected function insertDimensions(array $data, $url) {
 	 	$dimensions = '';
@@ -703,7 +703,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 	/**
 	 * Adds the filename.
-	 * 
+	 *
 	 * @param	array		$data
 	 * @param	string		$url
 	 * @return	string
@@ -729,10 +729,10 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 	/**
 	 * Adds the revision date.
-	 * 
+	 *
 	 * @param	array		$data
 	 * @param	string		$url
-	 * @return	string 
+	 * @return	string
 	 */
 	protected function insertRevisionDate(array $data, $url) {
 		$date = '';
@@ -760,12 +760,12 @@ class tx_mllinks_pi1 extends tslib_pibase {
 
 	/**
 	 * Adds a string.
-	 * 
+	 *
 	 * @param	array		$data
 	 * @param	string		$linkTag
-	 * @return	string 
+	 * @return	string
 	 */
-	protected function insertString(array $data, $linkTag) { 
+	protected function insertString(array $data, $linkTag) {
 		$string = '';
 
 		if (!empty($this->tag) && isset($data['separator'])) {

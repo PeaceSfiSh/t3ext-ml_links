@@ -1,3 +1,7 @@
+2011-03-02  Xavier Perseguers  <typo3@perseguers.ch>
+
+	* Added non-breaking spaces between size and unit in file size
+
 2010-10-13  Xavier Perseguers  <typo3@perseguers.ch>
 
 	* Fixed link support in bullet and enumerated lists (Thanks to Pierre Boivin)
