@@ -11,8 +11,8 @@
 ########################################################################
 
 $EM_CONF[$_EXTKEY] = array(
-	'title' => 'Extended links',
-	'description' => '"Extended links" allows to add icons for several link types, you can e.g. also display the filesize',
+	'title' => 'Extended Links',
+	'description' => '"Extended Links" allows to add icons for several link types, you can e.g. also display the filesize',
 	'category' => 'fe',
 	'shy' => 0,
 	'dependencies' => '',
