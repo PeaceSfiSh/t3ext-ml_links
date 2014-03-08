@@ -1,6 +1,7 @@
 2014-03-08  Xavier Perseguers  <xavier@causal.ch>
 
-	* [BUGFIX] #46333: files not detected when using config.absRefPrefix
+	* [BUGFIX] #45166: Links to media files don't work with DAM 1.3.1 (Thanks to Birte)
+	* [BUGFIX] #46333: Files not detected when using config.absRefPrefix
 	* [TASK][DOC] Convert documentation to reStructuredText
 	* [TASK] Compatibility with TYPO3 4.5 LTS - 6.2 LTS
 

@@ -38,15 +38,21 @@ class ux_tx_dam_tsfemediatag extends tx_dam_tsfemediatag {
 	 * Generally the concept "typolink" should be used in your own applications as an API for making links to pages with parameters and more. The reason for this is that you will then automatically make links compatible with all the centralized functions for URL simulation and manipulation of parameters into hashes and more.
 	 * For many more details on the parameters and how they are intepreted, please see the link to TSref below.
 	 *
-	 * @param	string		The string (text) to link
-	 * @param	array		TypoScript configuration (see link below)
+	 * @param string $linktxt The string (text) to link
+	 * @param array $conf TypoScript configuration (see link below)
+	 * @param tslib_cObj $cObj
 	 * @return	string		A link-wrapped string.
 	 * @see stdWrap(), tslib_pibase::pi_linkTP()
 	 * @link http://typo3.org/doc.0.html?&tx_extrepmgm_pi1[extUid]=270&tx_extrepmgm_pi1[tocEl]=321&cHash=59bd727a5e
 	 */
-	function typoLink($linktxt, $conf) {
+	function typoLink($linktxt, $conf, $cObj = NULL) {
 		$finalTagParts = array();
-		
+
+		// If called from media link handler, use the reference of the passed cObj
+		if (!is_object($this->cObj)) {
+			$this->cObj = $cObj;
+		}
+
 		$link_param = trim($this->cObj->stdWrap($conf['parameter'], $conf['parameter.']));
 
 		$initP = '?id=' . $GLOBALS['TSFE']->id . '&type=' . $GLOBALS['TSFE']->type;
@@ -97,7 +103,7 @@ class ux_tx_dam_tsfemediatag extends tx_dam_tsfemediatag {
 				$GLOBALS['TT']->setTSlogMessage("tx_dam_tsfemediatag->typolink(): File id '" . $link_param . "' was not found, so '" . $linktxt . "' was not linked.", 1);
 				return $linktxt;
 			}
-			
+
 			if (!$media->isAvailable) {
 				$GLOBALS['TT']->setTSlogMessage("tx_dam_tsfemediatag->typolink(): File '" . $media->getPathForSite() . "' (" . $link_param . ") did not exist, so '" . $linktxt . "' was not linked.", 1);
 				return $linktxt;
@@ -107,7 +113,7 @@ class ux_tx_dam_tsfemediatag extends tx_dam_tsfemediatag {
 			$meta = $media->getMetaArray();
 			if (is_array($this->conf['procFields.'])) {
 				foreach ($this->conf['procFields.'] as $field => $fieldConf) {
-					
+
 					if (substr($field, -1, 1) === '.') {
 						$fN = substr($field, 0, -1);
 					} else {
@@ -125,7 +131,7 @@ class ux_tx_dam_tsfemediatag extends tx_dam_tsfemediatag {
 
 				// Title tag
 			$title = $conf['title'];
-			
+
 			if ($conf['title.']) {
 				$title = $this->cObj->stdWrap($title, $conf['title.']);
 			}
@@ -206,5 +212,3 @@ class ux_tx_dam_tsfemediatag extends tx_dam_tsfemediatag {
 		}
 	}
 }
-
-?>
