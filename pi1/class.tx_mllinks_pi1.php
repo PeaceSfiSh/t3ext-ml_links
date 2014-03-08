@@ -50,12 +50,12 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	 *
 	 * @param string $content
 	 * @param array $conf
-	 * @return	string
+	 * @return string
 	 */
 	public function main($content, $conf) {
 		$this->pi_loadLL();
 
-			// Get configuration
+		// Get configuration
 		$this->conf = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_mllinks_pi1.'];
 
 		$fileType = $GLOBALS['TSFE']->register['fileType'];
@@ -63,11 +63,11 @@ class tx_mllinks_pi1 extends tslib_pibase {
 		$linkTag = $GLOBALS['TSFE']->register['tag'];
 		$url = urldecode($GLOBALS['TSFE']->register['url']);
 
-			// Use given seperator
+		// Use given seperator
 		$this->separator = isset($this->conf['separator']) ? $this->conf['separator'] : ' ';
 		$this->tag = '';
 
-			// Go through configuration and modify the link
+		// Go through configuration and modify the link
 		switch ($linkType) {
 			case 'file':
 				$this->prepareFileLink($content, $fileType, $linkType, $linkTag, $url);
@@ -83,7 +83,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 				break;
 		}
 
-			// Delete temp variables
+		// Delete temp variables
 		unset($GLOBALS['TSFE']->register['fileType']);
 		unset($GLOBALS['TSFE']->register['linkType']);
 		unset($GLOBALS['TSFE']->register['tag']);
@@ -99,15 +99,15 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	/**
 	 * Prepares the tag for a link of type "file".
 	 *
-	 * @param	string		$content
-	 * @param	string		$fileType
-	 * @param	string		$linkType
-	 * @param	string		$linkTag
-	 * @param	string		$url
-	 * @return	void
+	 * @param string $content
+	 * @param string $fileType
+	 * @param string $linkType
+	 * @param string $linkTag
+	 * @param string $url
+	 * @return void
 	 */
 	protected function prepareFileLink($content, $fileType, $linkType, $linkTag, $url) {
-				// Check if there is anything defined for this filetype and if the file exists
+		// Check if there is anything defined for this filetype and if the file exists
 		if (isset($this->conf[$fileType . '.']) && file_exists($url)) {
 			$settings = $this->conf[$fileType . '.'];
 			ksort($settings);
@@ -157,7 +157,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 			}
 		}
 
-			// Check if there are any default settings and if the file exists
+		// Check if there are any default settings and if the file exists
 		elseif (isset($this->conf['default.']) && file_exists($url)) {
 			$settings = $this->conf['default.'];
 			ksort($settings);
@@ -203,7 +203,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 			}
 		}
 
-			// Check if there are any settings if the file doesn't exist
+		// Check if there are any settings if the file doesn't exist
 		elseif (!file_exists($url) && isset($this->conf['notFound.'])) {
 			$settings = $this->conf['notFound.'];
 			ksort($settings);
@@ -233,12 +233,12 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	/**
 	 * Prepares the tag for a link of type "mailto".
 	 *
-	 * @param	string		$content
-	 * @param	string		$fileType
-	 * @param	string		$linkType
-	 * @param	string		$linkTag
-	 * @param	string		$url
-	 * @return	void
+	 * @param string $content
+	 * @param string $fileType
+	 * @param string $linkType
+	 * @param string $linkTag
+	 * @param string $url
+	 * @return void
 	 */
 	protected function prepareMailtoLink($content, $fileType, $linkType, $linkTag, $url) {
 		if (isset($this->conf['mailto.'])) {
@@ -278,12 +278,12 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	/**
 	 * Prepares the tag for a link of type "page".
 	 *
-	 * @param	string		$content
-	 * @param	string		$fileType
-	 * @param	string		$linkType
-	 * @param	string		$linkTag
-	 * @param	string		$url
-	 * @return	void
+	 * @param string $content
+	 * @param string $fileType
+	 * @param string $linkType
+	 * @param string $linkTag
+	 * @param string $url
+	 * @return void
 	 */
 	protected function preparePageLink($content, $fileType, $linkType, $linkTag, $url) {
 		if (isset($this->conf['internal.'])) {
@@ -323,12 +323,12 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	/**
 	 * Prepares the tag for a link of type "url".
 	 *
-	 * @param	string		$content
-	 * @param	string		$fileType
-	 * @param	string		$linkType
-	 * @param	string		$linkTag
-	 * @param	string		$url
-	 * @return	void
+	 * @param string $content
+	 * @param string $fileType
+	 * @param string $linkType
+	 * @param string $linkTag
+	 * @param string $url
+	 * @return void
 	 */
 	protected function prepareUrlLink($content, $fileType, $linkType, $linkTag, $url) {
 		$settings = array();
@@ -367,14 +367,14 @@ class tx_mllinks_pi1 extends tslib_pibase {
 							$this->tag .= $this->separator;
 						}
 
-							// Get filetype
+						// Get filetype
 						$file = basename($url);
 						if (preg_match('/(.*)\.([^\.]*$)/', $file, $reg)) {
 							$ext = strtolower($reg[2]);
 							$ext = ($ext === 'jpeg') ? 'jpg' : $ext;
 						}
 
-							// Add image
+						// Add image
 						if (isset($data['image.'][$ext])) {
 							$image = $data['image.'][$ext];
 							$alt = isset($data['image.'][$ext]['alt']) ? $data['image.'][$ext]['alt'] : '';
@@ -383,7 +383,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 							$alt = isset($data['image.']['alt']) ? $data['image.']['alt'] : '';
 						}
 						if (!strcmp(substr($image, 0, 4), 'EXT:')) {
-								// Get rid of 'EXT:'
+							// Get rid of 'EXT:'
 							$image = substr($image, 4);
 							list($ext, $path) = explode('/', $image, 2);
 							$extRelPath = substr(t3lib_extMgm::extPath($ext), strlen(PATH_site));
@@ -391,7 +391,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 						}
 						$imageTag = file_exists($image) ? '<img src="' . $image . '" alt="' . $alt . '"/>' : '';
 
-							// Add link if configured
+						// Add link if configured
 						if (isset($data['image.']['link']) && $data['image.']['link'] == 1) {
 							$this->tag .= $linkTag . $imageTag . '</a>';
 						} else {
@@ -427,16 +427,16 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	/**
 	 * Adds an image.
 	 *
-	 * @param	array		$data
-	 * @param	string		$linkTag
-	 * @return	string
+	 * @param array $data
+	 * @param string $linkTag
+	 * @return string
 	 */
 	protected function insertImage(array $data, $linkTag) {
 	 	$img = '';
 
 	 	$image = $data['image'];
 	 	if (!strcmp(substr($image, 0, 4), 'EXT:')) {
-	 			// Get rid of 'EXT:'
+	 		// Get rid of 'EXT:'
 	 		$image = substr($image, 4);
 	 		list($ext, $path) = explode('/', $image, 2);
 	 		$extRelPath = substr(t3lib_extMgm::extPath($ext), strlen(PATH_site));
@@ -474,10 +474,10 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	/**
 	 * Adds a linktag.
 	 *
-	 * @param	array		$data
-	 * @param	string		$content
-	 * @param	string		$url
-	 * @return	string
+	 * @param array $data
+	 * @param string $content
+	 * @param string $url
+	 * @return string
 	 */
 	 protected function insertLink(array $data, $content, $url) {
 	 	$link = '';
@@ -518,10 +518,10 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	/**
 	 * Adds an opening A-tag.
 	 *
-	 * @param	array		$data
-	 * @param	string		$linkTag
-	 * @param	string url
-	 * @return	string
+	 * @param array $data
+	 * @param string $linkTag
+	 * @param string $url
+	 * @return string
 	 */
 	protected function insertOpeningATag(array $data, $linkTag, $url) {
 	 	$openingATag = '';
@@ -529,11 +529,11 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	 	if (isset($data['openingATag']) && $data['openingATag'] == 1) {
 			$openingATag .= $linkTag;
 
-				// Insert given params
+			// Insert given params
 			if (isset($data['openingATag.']['params']) && !empty($data['openingATag.']['params'])) {
 				$params = $data['openingATag.']['params'];
 
-					// Insert url if necessary
+				// Insert url if necessary
 				if (preg_match('/##linkTag##/i', $params)) {
 					$params = str_replace('##linkTag##', $url, $params);
 				}
@@ -543,7 +543,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 				$openingATag = $parts[1] . ' ' . $params . ' ' . $parts[2];
 			}
 
-				// Insert given target
+			// Insert given target
 			if (isset($data['openingATag.']['target']) && !empty($data['openingATag.']['target'])) {
 				$target = $data['openingATag.']['target'];
 
@@ -556,11 +556,11 @@ class tx_mllinks_pi1 extends tslib_pibase {
 				}
 			}
 
-				// Insert given title except a title is already set
+			// Insert given title except a title is already set
 			if (isset($data['openingATag.']['title']) && !empty($data['openingATag.']['title'])) {
 				$title = $data['openingATag.']['title'];
 
-					// Insert url if necessary
+				// Insert url if necessary
 				if (preg_match('/##linkTag##/i', $title)) {
 					$title = str_replace('##linkTag##', $url, $title);
 				}
@@ -579,9 +579,9 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	/**
 	 * Adds a link text.
 	 *
-	 * @param	array		$data
-	 * @param	string		$content
-	 * @return	string
+	 * @param array $data
+	 * @param string $content
+	 * @return string
 	 */
 	protected function insertLinkText(array $data, $content) {
 	 	$linkText = '';
@@ -606,8 +606,8 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	/**
 	 * Adds a closing A-tag.
 	 *
-	 * @param	array		$data
-	 * @return	string
+	 * @param array $data
+	 * @return string
 	 */
 	protected function insertClosingATag(array $data) {
 	 	$closingATag = '';
@@ -624,10 +624,10 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	/**
 	 * Adds the filesize.
 	 *
-	 * @param	array		$data
-	 * @param	string		$url
-	 * @param	string		$linkTag
-	 * @return	string
+	 * @param array $data
+	 * @param string $url
+	 * @param string $linkTag
+	 * @return string
 	 */
 	protected function insertFilesize(array $data, $url, $linkTag) {
 		$stringFilesize = '';
@@ -672,9 +672,9 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	/**
 	 * Adds the dimensions.
 	 *
-	 * @param	array		$data
-	 * @param	string		$url
-	 * @return	string
+	 * @param array $data
+	 * @param string $url
+	 * @return string
 	 */
 	protected function insertDimensions(array $data, $url) {
 	 	$dimensions = '';
@@ -702,9 +702,9 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	/**
 	 * Adds the filename.
 	 *
-	 * @param	array		$data
-	 * @param	string		$url
-	 * @return	string
+	 * @param array $data
+	 * @param string $url
+	 * @return string
 	 */
 	protected function insertFilename(array $data, $url) {
 		$filename = '';
@@ -728,9 +728,9 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	/**
 	 * Adds the revision date.
 	 *
-	 * @param	array		$data
-	 * @param	string		$url
-	 * @return	string
+	 * @param array $data
+	 * @param string $url
+	 * @return string
 	 */
 	protected function insertRevisionDate(array $data, $url) {
 		$date = '';
@@ -759,9 +759,9 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	/**
 	 * Adds a string.
 	 *
-	 * @param	array		$data
-	 * @param	string		$linkTag
-	 * @return	string
+	 * @param array $data
+	 * @param string $linkTag
+	 * @return string
 	 */
 	protected function insertString(array $data, $linkTag) {
 		$string = '';
@@ -783,13 +783,13 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	/**
 	 * Gets data of created link.
 	 *
-	 * @param	string		$content
-	 * @param	array		$conf
-	 * @return	string
+	 * @param string $content
+	 * @param array $conf
+	 * @return string
 	 */
 	public function getFiletype(array $content, $conf) {
 
-			// Get file extension
+		// Get file extension
 		$file = basename($content['url']);
 		if (preg_match('/(.*)\.([^\.]*$)/', $file, $reg)) {
 			$ext = strtolower($reg[2]);
@@ -797,13 +797,13 @@ class tx_mllinks_pi1 extends tslib_pibase {
 		}
 		$GLOBALS['TSFE']->register['fileType'] = $ext;
 
-			// Get link type
+		// Get link type
 		$GLOBALS['TSFE']->register['linkType'] = $content['TYPE'];
 
-			// Get link url
+		// Get link url
 		$GLOBALS['TSFE']->register['url'] = $content['url'];
 
-			// Get link tag
+		// Get link tag
 		$GLOBALS['TSFE']->register['tag'] = $content['TAG'];
 
 		return $content['TAG'];
