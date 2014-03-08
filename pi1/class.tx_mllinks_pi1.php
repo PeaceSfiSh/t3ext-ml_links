@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2009-2010 Xavier Perseguers (typo3@perseguers.ch)
+*  (c) 2009-2014 Xavier Perseguers (typo3@perseguers.ch)
 *  All rights reserved
 *
 *  (c) 2006-2008 Markus Friedrich (markus.friedrich@media-lights.de)
@@ -42,7 +42,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	public $scriptRelPath = 'pi1/class.tx_mllinks_pi1.php';
 	public $extKey = 'ml_links';
 
-	protected $buildLink = false;
+	protected $buildLink = TRUE;
 	protected $separator;
 
 	/**
@@ -107,8 +107,14 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	 * @return void
 	 */
 	protected function prepareFileLink($content, $fileType, $linkType, $linkTag, $url) {
+		$fileName = $url;
+		// For relative links (config.baseURL), there is no leading /
+		// For absolute links (config.absRefPrefix), there is a leading /
+		// CAUTION: we do not properly support TYPO3 websites not installed as root on www.domain.tld
+		$fileName = PATH_site . ltrim($url, '/');
+
 		// Check if there is anything defined for this filetype and if the file exists
-		if (isset($this->conf[$fileType . '.']) && file_exists($url)) {
+		if (isset($this->conf[$fileType . '.']) && file_exists($fileName)) {
 			$settings = $this->conf[$fileType . '.'];
 			ksort($settings);
 
@@ -139,15 +145,15 @@ class tx_mllinks_pi1 extends tslib_pibase {
 						break;
 
 					case 'revisionDate':
-	 					$this->tag .= $this->insertRevisionDate($data, $url);
+	 					$this->tag .= $this->insertRevisionDate($data, $fileName);
 						break;
 
 					case 'filesize':
-	 					$this->tag .= $this->insertFilesize($data, $url, $linkTag);
+	 					$this->tag .= $this->insertFilesize($data, $fileName, $linkTag);
 						break;
 
 					case 'dimensions':
-	 					$this->tag .= $this->insertDimensions($data, $url);
+	 					$this->tag .= $this->insertDimensions($data, $fileName);
 						break;
 
 					case 'string':
@@ -397,7 +403,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 						} else {
 							$this->tag .= $imageTag;
 						}
-						$this->buildLink = true;
+						$this->buildLink = TRUE;
 						break;
 
 					case 'linkTag':
@@ -465,7 +471,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 					$img .= '<img src="' . $image . '" alt="" />';
 				}
 			}
-			$this->buildLink = true;
+			$this->buildLink = TRUE;
 		}
 
 		return $img;
@@ -509,7 +515,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 				$link .= $content;
 			}
 
-			$this->buildLink = true;
+			$this->buildLink = TRUE;
 		}
 
 		return $link;
@@ -616,7 +622,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 			$closingATag .= '</a>';
 		}
 
-		$this->buildLink = true;
+		$this->buildLink = TRUE;
 
 		return $closingATag;
 	}
@@ -625,14 +631,14 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	 * Adds the filesize.
 	 *
 	 * @param array $data
-	 * @param string $url
+	 * @param string $fileName
 	 * @param string $linkTag
 	 * @return string
 	 */
-	protected function insertFilesize(array $data, $url, $linkTag) {
+	protected function insertFilesize(array $data, $fileName, $linkTag) {
 		$stringFilesize = '';
 
-		if (($data['filesize'] == 1) && file_exists($url)) {
+		if (($data['filesize'] == 1) && file_exists($fileName)) {
 			if (!empty($this->tag)) {
 				if (isset($data['separator'])) {
 					$stringFilesize .= $data['separator'];
@@ -650,7 +656,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 			);
 
 			$j = 0;
-			$filesize = filesize($url);
+			$filesize = filesize($fileName);
 			for ($j = 0; $filesize >= 1024; $j++) {
 				$filesize /= 1024;
 			}
@@ -663,7 +669,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 			} else {
 				$stringFilesize .= sprintf($size, $filesize, $units[$j]);
 			}
-			$this->buildLink = true;
+			$this->buildLink = TRUE;
 		}
 
 		return $stringFilesize;
@@ -673,13 +679,13 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	 * Adds the dimensions.
 	 *
 	 * @param array $data
-	 * @param string $url
+	 * @param string $fileName
 	 * @return string
 	 */
-	protected function insertDimensions(array $data, $url) {
+	protected function insertDimensions(array $data, $fileName) {
 	 	$dimensions = '';
 
-		if (($data['dimensions'] == 1) && file_exists($url)) {
+		if (($data['dimensions'] == 1) && file_exists($fileName)) {
 			if (!empty($this->tag)) {
 				if (isset($data['separator'])) {
 					$dimensions .= $data['separator'];
@@ -688,12 +694,12 @@ class tx_mllinks_pi1 extends tslib_pibase {
 				}
 			}
 
-			$imgData = getimagesize($url);
+			$imgData = getimagesize($fileName);
 			if (!empty($imgData)) {
 				$dimensions .= sprintf('%sx%s', $imgData[0], $imgData[1]);
 			}
 
-			$this->buildLink = true;
+			$this->buildLink = TRUE;
 		}
 
 		return $dimensions;
@@ -719,7 +725,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 			}
 
 			$filename .= basename($url);
-			$this->buildLink = true;
+			$this->buildLink = TRUE;
 		}
 
 		return $filename;
@@ -729,13 +735,13 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	 * Adds the revision date.
 	 *
 	 * @param array $data
-	 * @param string $url
+	 * @param string $fileName
 	 * @return string
 	 */
-	protected function insertRevisionDate(array $data, $url) {
+	protected function insertRevisionDate(array $data, $fileName) {
 		$date = '';
 
-		if ($data['revisionDate'] == 1 && file_exists($url)) {
+		if ($data['revisionDate'] == 1 && file_exists($fileName)) {
 			if (!empty($this->tag)) {
 				if (isset($data['separator'])) {
 					$date .= $data['separator'];
@@ -749,8 +755,8 @@ class tx_mllinks_pi1 extends tslib_pibase {
 				$format = $data['revisionDate.']['format'];
 			}
 
-			$date .= strftime ($format, filemtime($url));
-			$this->buildLink = true;
+			$date .= strftime($format, filemtime($fileName));
+			$this->buildLink = TRUE;
 		}
 
 		return $date;
@@ -775,7 +781,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 		} else {
 			$string .= $data['string'];
 		}
-		$this->buildLink = true;
+		$this->buildLink = TRUE;
 
 		return $string;
 	}

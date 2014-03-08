@@ -1,5 +1,6 @@
 2014-03-08  Xavier Perseguers  <xavier@causal.ch>
 
+	* [BUGFIX] #46333: files not detected when using config.absRefPrefix
 	* [TASK][DOC] Convert documentation to reStructuredText
 	* [TASK] Compatibility with TYPO3 4.5 LTS - 6.2 LTS
 
