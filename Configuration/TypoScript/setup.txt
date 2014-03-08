@@ -1,6 +1,6 @@
 plugin.tx_mllinks_pi1 {
 	separator = &nbsp;
-	
+
 		## definition for external links
 	externalDomain {
 		1 {
@@ -9,7 +9,7 @@ plugin.tx_mllinks_pi1 {
 			10.image.link = 0
 			20.linkTag = 1
 		}
-		
+
 		2 {
 			domain = http://fr.wikipedia.org
 			10.image = EXT:ml_links/Resources/Public/Icons/domains/wikipedia.png
@@ -24,7 +24,7 @@ plugin.tx_mllinks_pi1 {
 			20.linkTag = 1
 		}
 	}
-	
+
 	external {
 		10.image = EXT:ml_links/Resources/Public/Icons/globe.gif
 		10.image.link = 0
@@ -33,7 +33,7 @@ plugin.tx_mllinks_pi1 {
 
 	external.10.image.doc = EXT:ml_links/Resources/Public/Icons/external/doc.png
 	external.10.image.pdf = EXT:ml_links/Resources/Public/Icons/external/pdf.png
-	
+
 	mailto {
 		10.image = EXT:ml_links/Resources/Public/Icons/mailto.gif
 		10.image.link = 0
@@ -80,7 +80,7 @@ plugin.tx_mllinks_pi1 {
 		20.linkTag = 1
 		30.filesize = 1
 	}
-	
+
 	t3x {
 		10.image = EXT:ml_links/Resources/Public/Icons/filetypes/t3x.png
 		10.image.link = 0
@@ -116,14 +116,14 @@ plugin.tx_mllinks_pi1 {
 		20.linkTag = 1
 		30.filesize = 1
 	}
-	
+
 	pps {
 		10.image = EXT:ml_links/Resources/Public/Icons/filetypes/pps.png
 		10.image.link = 0
 		20.linkTag = 1
 		30.filesize = 1
 	}
-	
+
 	ppt {
 		10.image = EXT:ml_links/Resources/Public/Icons/filetypes/ppt.png
 		10.image.link = 0
@@ -204,7 +204,7 @@ plugin.tx_mllinks_pi1 {
 		20.linkTag = 1
 		30.filesize = 1
 	}
-	
+
 	pl {
 		10.image = EXT:ml_links/Resources/Public/Icons/filetypes/txt.png
 		10.image.link = 0
@@ -224,7 +224,7 @@ plugin.tx_mllinks_pi1 {
 		10.image.link = 0
 		20.linkTag = 1
 	}
- 
+
 		## Filetypes: Multimedia
 	mid {
 		10.image = EXT:ml_links/Resources/Public/Icons/filetypes/mid.png

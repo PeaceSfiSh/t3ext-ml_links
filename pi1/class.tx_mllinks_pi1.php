@@ -25,8 +25,6 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
-require_once(PATH_tslib . 'class.tslib_pibase.php');
-
 /**
  * Plugin 'Extended links' for the 'ml_links' extension.
  *
@@ -50,8 +48,8 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	/**
 	 * Goes through config and design the link layout
 	 *
-	 * @param	string		$content
-	 * @param	array		$conf
+	 * @param string $content
+	 * @param array $conf
 	 * @return	string
 	 */
 	public function main($content, $conf) {
@@ -813,7 +811,6 @@ class tx_mllinks_pi1 extends tslib_pibase {
 }
 
 
-if (defined('TYPO3_MODE') && $TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/ml_links/pi1/class.tx_mllinks_pi1.php']) {
-	include_once($TYPO3_CONF_VARS[TYPO3_MODE]['XCLASS']['ext/ml_links/pi1/class.tx_mllinks_pi1.php']);
+if (defined('TYPO3_MODE') && isset($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/ml_links/pi1/class.tx_mllinks_pi1.php'])) {
+	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/ml_links/pi1/class.tx_mllinks_pi1.php']);
 }
-?>
