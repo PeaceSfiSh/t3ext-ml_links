@@ -111,7 +111,9 @@ class tx_mllinks_pi1 extends tslib_pibase {
 		// For relative links (config.baseURL), there is no leading /
 		// For absolute links (config.absRefPrefix), there is a leading /
 		// CAUTION: we do not properly support TYPO3 websites not installed as root on www.domain.tld
-		$fileName = PATH_site . ltrim($url, '/');
+		if ($fileName{0} === '/') {
+			$fileName = PATH_site . substr($fileName, 1);
+		}
 
 		// Check if there is anything defined for this filetype and if the file exists
 		if (isset($this->conf[$fileType . '.']) && file_exists($fileName)) {
