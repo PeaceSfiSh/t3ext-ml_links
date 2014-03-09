@@ -53,7 +53,7 @@ Extended Links
 	a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
 
 
-	**Other versions of this document**
+	**Other version of this document**
 
 	:PDF:
 		http://docs.typo3.org/typo3cms/extensions/ml_links/1.2.2/_pdf/
