@@ -67,7 +67,7 @@ class ux_tx_dam_tsfemediatag extends tx_dam_tsfemediatag {
 			$forceTarget = trim($link_paramA[1]);	// Target value
 			$forceTitle = trim($link_paramA[3]);	// Title value
 			if ($forceTarget === '-') $forceTarget = '';	// The '-' character means 'no target'. Necessary in order to specify a class as third parameter without setting the target!
-				// Check, if the target is coded as a JS open window link:
+			// Check, if the target is coded as a JS open window link:
 			$JSwindowParts = array();
 			$JSwindowParams = '';
 			$onClick = '';
@@ -79,27 +79,32 @@ class ux_tx_dam_tsfemediatag extends tx_dam_tsfemediatag {
 					list($JSp, $JSv) = explode('=', $JSv);
 					$JSwindow_paramsArr[$JSp] = $JSp . '=' . $JSv;
 				}
-					// Add width/height:
+				// Add width/height:
 				$JSwindow_paramsArr['width'] = 'width=' . $JSwindowParts[1];
 				$JSwindow_paramsArr['height'] = 'height=' . $JSwindowParts[2];
-					// Imploding into string:
+				// Imploding into string:
 				$JSwindowParams = implode(',', $JSwindow_paramsArr);
 				$forceTarget = '';	// Resetting the target since we will use onClick.
 			}
 
-				// Internal target:
+			// Internal target:
 			$target = isset($conf['target']) ? $conf['target'] : $GLOBALS['TSFE']->intTarget;
 			if ($conf['target.']) {
 				$target = $this->cObj->stdWrap($target, $conf['target.']);
 			}
 
-				// Checking if the id-parameter is an alias.
-			if (!t3lib_div::testInt($link_param)) {
+			// Checking if the id-parameter is an alias.
+			if (version_compare(TYPO3_version, '4.6.0', '>=')) {
+				$isInteger = t3lib_utility_Math::canBeInterpretedAsInteger($link_param);
+			} else {
+				$isInteger = t3lib_div::testInt($link_param);
+			}
+			if (!$isInteger) {
 				$GLOBALS['TT']->setTSlogMessage("tx_dam_tsfemediatag->typolink(): File id '" . $link_param . "' is not an integer, so '" . $linktxt . "' was not linked.",1);
 				return $linktxt;
 			}
 
-			if (!is_object($media = tx_dam::media_getByUid ($link_param))) {
+			if (!is_object($media = tx_dam::media_getByUid($link_param))) {
 				$GLOBALS['TT']->setTSlogMessage("tx_dam_tsfemediatag->typolink(): File id '" . $link_param . "' was not found, so '" . $linktxt . "' was not linked.", 1);
 				return $linktxt;
 			}
@@ -129,14 +134,14 @@ class ux_tx_dam_tsfemediatag extends tx_dam_tsfemediatag {
 			$this->addMetaToData ($meta);
 
 
-				// Title tag
+			// Title tag
 			$title = $conf['title'];
 
 			if ($conf['title.']) {
 				$title = $this->cObj->stdWrap($title, $conf['title.']);
 			}
 
-				// Setting title if blank value to link:
+			// Setting title if blank value to link:
 			if ($linktxt === '') $linktxt = $media->getContent('title');
 
 			if ($GLOBALS['TSFE']->config['config']['jumpurl_enable']) {
@@ -160,7 +165,7 @@ class ux_tx_dam_tsfemediatag extends tx_dam_tsfemediatag {
 
 			if ($JSwindowParams) {
 
-					// Create TARGET-attribute only if the right doctype is used
+				// Create TARGET-attribute only if the right doctype is used
 				if (!t3lib_div::inList('xhtml_strict,xhtml_11,xhtml_2', $GLOBALS['TSFE']->xhtmlDoctype)) {
 					$target = ' target="FEopenLink"';
 				} else {
@@ -186,7 +191,7 @@ class ux_tx_dam_tsfemediatag extends tx_dam_tsfemediatag {
 				$res = $this->cObj->callUserFunction($conf['userFunc'], $conf['userFunc.'], $finalTagParts);
 			}
 
-				// If flag "returnLastTypoLinkUrl" set, then just return the latest URL made:
+			// If flag "returnLastTypoLinkUrl" set, then just return the latest URL made:
 			if ($conf['returnLast']) {
 				switch ($conf['returnLast']) {
 					case 'url':
