@@ -1,3 +1,7 @@
+2014-03-09  Xavier Perseguers  <xavier@causal.ch>
+
+	* [TASK] Modernize extension's icon
+
 2014-03-08  Xavier Perseguers  <xavier@causal.ch>
 
 	* [BUGFIX] #45166: Links to media files don't work with DAM 1.3.1 (Thanks to Birte)
