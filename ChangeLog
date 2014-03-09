@@ -1,5 +1,6 @@
 2014-03-09  Xavier Perseguers  <xavier@causal.ch>
 
+	* [BUGFIX] #46333: "default" and "notFound" configuration missing with config.absRefPrefix
 	* [TASK][DOC] #30284: Describe how to post-process tt_news content
 	* [TASK][DOC] Move separator configuration to corresponding chapter
 	* [TASK] Better extension description

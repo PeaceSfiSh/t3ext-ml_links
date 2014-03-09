@@ -166,7 +166,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 		}
 
 		// Check if there are any default settings and if the file exists
-		elseif (isset($this->conf['default.']) && file_exists($url)) {
+		elseif (isset($this->conf['default.']) && file_exists($fileName)) {
 			$settings = $this->conf['default.'];
 			ksort($settings);
 
@@ -212,7 +212,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 		}
 
 		// Check if there are any settings if the file doesn't exist
-		elseif (!file_exists($url) && isset($this->conf['notFound.'])) {
+		elseif (!file_exists($fileName) && isset($this->conf['notFound.'])) {
 			$settings = $this->conf['notFound.'];
 			ksort($settings);
 
@@ -390,7 +390,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 							$image = $data['image'];
 							$alt = isset($data['image.']['alt']) ? $data['image.']['alt'] : '';
 						}
-						if (!strcmp(substr($image, 0, 4), 'EXT:')) {
+						if (substr($image, 0, 4) === 'EXT:') {
 							// Get rid of 'EXT:'
 							$image = substr($image, 4);
 							list($ext, $path) = explode('/', $image, 2);
@@ -443,7 +443,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	 	$img = '';
 
 	 	$image = $data['image'];
-	 	if (!strcmp(substr($image, 0, 4), 'EXT:')) {
+	 	if (substr($image, 0, 4) === 'EXT:') {
 	 		// Get rid of 'EXT:'
 	 		$image = substr($image, 4);
 	 		list($ext, $path) = explode('/', $image, 2);
