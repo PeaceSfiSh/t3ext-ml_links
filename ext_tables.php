@@ -4,4 +4,3 @@ if (!defined ('TYPO3_MODE')) {
 }
 
 t3lib_extMgm::addStaticFile($_EXTKEY, 'Configuration/TypoScript/', 'Extended Links - Default configuration');
-?>

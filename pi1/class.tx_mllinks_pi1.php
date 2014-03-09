@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2009-2014 Xavier Perseguers (typo3@perseguers.ch)
+*  (c) 2009-2014 Xavier Perseguers (xavier@causal.ch)
 *  All rights reserved
 *
 *  (c) 2006-2008 Markus Friedrich (markus.friedrich@media-lights.de)
@@ -31,13 +31,13 @@
  * @category    Plugin
  * @package     TYPO3
  * @subpackage  tx_mllinks
- * @author      Xavier Perseguers <typo3@perseguers.ch>
+ * @author      Xavier Perseguers <xavier@causal.ch>
  * @author      Markus Friedrich <markus.friedrich@media-lights.de>
  * @license     http://www.gnu.org/copyleft/gpl.html
  * @version     SVN: $Id$
  */
-
 class tx_mllinks_pi1 extends tslib_pibase {
+
 	public $prefixId = 'tx_mllinks_pi1';
 	public $scriptRelPath = 'pi1/class.tx_mllinks_pi1.php';
 	public $extKey = 'ml_links';

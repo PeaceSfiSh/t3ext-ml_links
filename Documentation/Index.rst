@@ -24,15 +24,17 @@ Extended Links
 		en
 
 	:Description:
-		"Extended Links" allows to add icons for several link types, you can e.g. also display the filesize.
+		"Extended Links" lets you post-process generated links (file, mailto, internal and external) to enrich them with
+		additional information such as a type icon (PDF, DOC, ...) for links to a file or a mailbox icon for mailto
+		links. Last modification date or size of a file to download may easily be appended as well.
 
 	:Keywords:
 		links, anchor, icon, metadata
 
 	:Copyright:
-		2006-2008: Markus Friedrich
-
 		2009-2014: Xavier Perseguers
+
+		2006-2008: Markus Friedrich
 
 	:Author:
 		Markus Friedrich, Xavier Perseguers
