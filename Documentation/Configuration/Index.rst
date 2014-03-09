@@ -26,6 +26,14 @@ default the extension's configuration is set in:
 
 - lib.parseFunc_RTE.tags.link
 
+.. tip::
+	You may need to extend the default extension's configuration if you want to process output of 3rd-party extensions.
+	E.g., with tt_news, you should add this:
+
+	.. code-block:: typoscript
+
+		plugin.tt_news.displaySingle.content_stdWrap.parseFunc < lib.parseFunc_RTE
+
 
 .. toctree::
 	:maxdepth: 5
