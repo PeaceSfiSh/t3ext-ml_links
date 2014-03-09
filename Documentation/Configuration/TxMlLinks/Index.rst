@@ -47,4 +47,6 @@ separator
 
 :typoscript:`plugin.tx_mllinks_pi1.separator =` :ref:`t3tsref:data-type-string`
 
-String that is used to separate the elements.
+String that is used to separate the various elements (icon, file size, ...). If you do not override this configuration
+value the elements are separated with a non-breaking space character. To delete the separator set it to an empty string
+(separator = "").

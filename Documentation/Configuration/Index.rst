@@ -16,7 +16,7 @@ always ``image``, ``linkTag``, ``filesize`` and ``string``, the position of each
 that you can add as many elements as you want to.
 
 For all types it's important to place the TypoScript at the right place, otherwise the extension will do nothing. By
-default the extensions configuration is set in:
+default the extension's configuration is set in:
 
 - tt_content.text.20.parseFunc.tags.link
 
@@ -25,13 +25,6 @@ default the extensions configuration is set in:
 - lib.parseFunc.tags.link
 
 - lib.parseFunc_RTE.tags.link
-
-
-**Separator**
-
-Every element will be separated using the default separator which can be set using the separator keyword. If you do not
-use this configuration value the elements are separated with a space character, to delete the separator set it to empty
-(separator = "").
 
 
 .. toctree::
