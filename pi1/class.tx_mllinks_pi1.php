@@ -109,10 +109,12 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	protected function prepareFileLink($content, $fileType, $linkType, $linkTag, $url) {
 		$fileName = $url;
 		// For relative links (config.baseURL), there is no leading /
-		// For absolute links (config.absRefPrefix), there is a leading /
-		// CAUTION: we do not properly support TYPO3 websites not installed as root on www.domain.tld
-		if ($fileName{0} === '/') {
-			$fileName = PATH_site . substr($fileName, 1);
+		// For absolute links (config.absRefPrefix), there is a leading / or a full scheme+domain
+		if (!empty($GLOBALS['TSFE']->tmpl->setup['config.']['absRefPrefix'])) {
+			$absRefPrefix = $GLOBALS['TSFE']->tmpl->setup['config.']['absRefPrefix'];
+			if (t3lib_div::isFirstPartOfStr($fileName, $absRefPrefix)) {
+				$fileName = PATH_site . substr($fileName, strlen($absRefPrefix));
+			}
 		}
 
 		// Check if there is anything defined for this filetype and if the file exists

@@ -1,5 +1,6 @@
 2014-03-09  Xavier Perseguers  <xavier@causal.ch>
 
+	* [BUGFIX] #56677: Enhanced support for config.absRefPrefix
 	* [BUGFIX] #56678: Deprecated call t3lib_div::testInt()
 	* [BUGFIX] #46333: "default" and "notFound" configuration missing with config.absRefPrefix
 	* [TASK][DOC] #30284: Describe how to post-process tt_news content
