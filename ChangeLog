@@ -1,3 +1,7 @@
+2014-03-10  Xavier Perseguers  <xavier@causal.ch>
+
+	* [BUGFIX] #56717: Internal links are removed
+
 2014-03-09  Xavier Perseguers  <xavier@causal.ch>
 
 	* [BUGFIX] #56677: Enhanced support for config.absRefPrefix

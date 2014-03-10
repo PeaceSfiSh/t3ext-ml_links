@@ -237,6 +237,9 @@ class tx_mllinks_pi1 extends tslib_pibase {
 						break;
 				}
 			}
+		} else {
+			// Do not change the link!
+			$this->buildLink = FALSE;
 		}
 	}
 
