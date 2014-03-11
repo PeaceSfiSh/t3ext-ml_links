@@ -1,3 +1,7 @@
+2014-03-11  Xavier Perseguers  <xavier@causal.ch>
+
+	* [TASK] Raise version to 1.2.2
+
 2014-03-10  Xavier Perseguers  <xavier@causal.ch>
 
 	* [BUGFIX] #56717: Internal links are removed
