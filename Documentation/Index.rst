@@ -56,7 +56,7 @@ Extended Links
 	**Other version of this document**
 
 	:PDF:
-		http://docs.typo3.org/typo3cms/extensions/ml_links/1.2.2/_pdf/
+		http://docs.typo3.org/typo3cms/extensions/ml_links/1.2.3/_pdf/
 
 
 	**Table of Contents**

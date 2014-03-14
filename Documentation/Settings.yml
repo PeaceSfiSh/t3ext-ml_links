@@ -7,7 +7,7 @@ conf.py:
   copyright: 2006-2014
   project: Extended Links
   version: 1.2
-  release: 1.2.2
+  release: 1.2.3
   latex_documents:
   - - Index
     - ml_links.tex

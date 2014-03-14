@@ -1,3 +1,7 @@
+2014-03-14  Xavier Perseguers  <xavier@causal.ch>
+
+	* [TASK] Raise version to 1.2.3
+
 2014-03-13  Xavier Perseguers  <xavier@causal.ch>
 
 	* [BUGFIX] #56821: Missing TS configuration for a type removes link
