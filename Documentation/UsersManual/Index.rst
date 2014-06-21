@@ -43,21 +43,21 @@ Here is the TypoScript for the first example:
 
        # definition for external links (default)
        external {
-           10.image = EXT:ml_links/Resources/Icons/globe.gif
+           10.image = EXT:ml_links/Resources/Public/Icons/globe.gif
            10.image.link = 0
            20.linkTag = 1
        }
 
        # definition for mailto links here "mail@media-lights.de"
        mailto {
-           10.image = EXT:ml_links/Resources/Icons/mailto.gif
+           10.image = EXT:ml_links/Resources/Public/Icons/mailto.gif
            10.image.link = 0
            20.linkTag = 1
        }
 
        # definition for filelinks with filetype "pdf"
        pdf {
-           10.image = EXT:ml_links/Resources/Icons/filetypes/pdf.png
+           10.image = EXT:ml_links/Resources/Public/Icons/filetypes/pdf.png
            10.image.link = 0
            20.linkTag = 1
            30.filesize = 1

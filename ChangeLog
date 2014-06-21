@@ -1,3 +1,7 @@
+2014-06-21  Xavier Perseguers  <xavier@causal.ch>
+
+	* [BUGFIX][DOC] #57461: Wrong filepath in example typoscript (Thanks to Martin Hummer)
+
 2014-03-14  Xavier Perseguers  <xavier@causal.ch>
 
 	* [TASK] Raise version to 1.2.3
