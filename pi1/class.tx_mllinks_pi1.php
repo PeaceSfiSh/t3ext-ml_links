@@ -831,8 +831,3 @@ class tx_mllinks_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 		return $content['TAG'];
 	}
 }
-
-
-if (defined('TYPO3_MODE') && isset($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/ml_links/pi1/class.tx_mllinks_pi1.php'])) {
-	include_once($GLOBALS['TYPO3_CONF_VARS'][TYPO3_MODE]['XCLASS']['ext/ml_links/pi1/class.tx_mllinks_pi1.php']);
-}
