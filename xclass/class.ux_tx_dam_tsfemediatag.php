@@ -59,7 +59,7 @@ class ux_tx_dam_tsfemediatag extends tx_dam_tsfemediatag {
 		$this->cObj->lastTypoLinkUrl = '';
 		$this->cObj->lastTypoLinkTarget = '';
 		if ($link_param) {
-			$link_paramA = t3lib_div::unQuoteFilenames($link_param, TRUE);
+			$link_paramA = \TYPO3\CMS\Core\Utility\GeneralUtility::unQuoteFilenames($link_param, TRUE);
 
 			$link_param = trim($link_paramA[0]);	// Link parameter value
 			$linkClass = trim($link_paramA[2]);		// Link class
@@ -73,7 +73,7 @@ class ux_tx_dam_tsfemediatag extends tx_dam_tsfemediatag {
 			$onClick = '';
 			if ($forceTarget && preg_match('/^([0-9]+)x([0-9]+)(:(.*)|.*)$/', $forceTarget, $JSwindowParts)) {
 					// Take all pre-configured and inserted parameters and compile parameter list, including width+height:
-				$JSwindow_tempParamsArr = t3lib_div::trimExplode(',', strtolower($conf['JSwindow_params'] . ',' . $JSwindowParts[4]), TRUE);
+				$JSwindow_tempParamsArr = \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', strtolower($conf['JSwindow_params'] . ',' . $JSwindowParts[4]), TRUE);
 				$JSwindow_paramsArr = array();
 				foreach ($JSwindow_tempParamsArr as $JSv) {
 					list($JSp, $JSv) = explode('=', $JSv);
@@ -95,9 +95,9 @@ class ux_tx_dam_tsfemediatag extends tx_dam_tsfemediatag {
 
 			// Checking if the id-parameter is an alias.
 			if (version_compare(TYPO3_version, '4.6.0', '>=')) {
-				$isInteger = t3lib_utility_Math::canBeInterpretedAsInteger($link_param);
+				$isInteger = \TYPO3\CMS\Core\Utility\MathUtility::canBeInterpretedAsInteger($link_param);
 			} else {
-				$isInteger = t3lib_div::testInt($link_param);
+				$isInteger = \TYPO3\CMS\Core\Utility\GeneralUtility::testInt($link_param);
 			}
 			if (!$isInteger) {
 				$GLOBALS['TT']->setTSlogMessage("tx_dam_tsfemediatag->typolink(): File id '" . $link_param . "' is not an integer, so '" . $linktxt . "' was not linked.",1);
@@ -166,7 +166,7 @@ class ux_tx_dam_tsfemediatag extends tx_dam_tsfemediatag {
 			if ($JSwindowParams) {
 
 				// Create TARGET-attribute only if the right doctype is used
-				if (!t3lib_div::inList('xhtml_strict,xhtml_11,xhtml_2', $GLOBALS['TSFE']->xhtmlDoctype)) {
+				if (!\TYPO3\CMS\Core\Utility\GeneralUtility::inList('xhtml_strict,xhtml_11,xhtml_2', $GLOBALS['TSFE']->xhtmlDoctype)) {
 					$target = ' target="FEopenLink"';
 				} else {
 					$target = '';

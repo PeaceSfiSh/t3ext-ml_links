@@ -36,7 +36,7 @@
  * @license     http://www.gnu.org/copyleft/gpl.html
  * @version     SVN: $Id$
  */
-class tx_mllinks_pi1 extends tslib_pibase {
+class tx_mllinks_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 	public $prefixId = 'tx_mllinks_pi1';
 	public $scriptRelPath = 'pi1/class.tx_mllinks_pi1.php';
@@ -112,7 +112,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 		// For absolute links (config.absRefPrefix), there is a leading / or a full scheme+domain
 		if (!empty($GLOBALS['TSFE']->tmpl->setup['config.']['absRefPrefix'])) {
 			$absRefPrefix = $GLOBALS['TSFE']->tmpl->setup['config.']['absRefPrefix'];
-			if (t3lib_div::isFirstPartOfStr($fileName, $absRefPrefix)) {
+			if (\TYPO3\CMS\Core\Utility\GeneralUtility::isFirstPartOfStr($fileName, $absRefPrefix)) {
 				$fileName = PATH_site . substr($fileName, strlen($absRefPrefix));
 			}
 		}
@@ -405,7 +405,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 							// Get rid of 'EXT:'
 							$image = substr($image, 4);
 							list($ext, $path) = explode('/', $image, 2);
-							$extRelPath = substr(t3lib_extMgm::extPath($ext), strlen(PATH_site));
+							$extRelPath = substr(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($ext), strlen(PATH_site));
 							$image = $extRelPath . $path;
 						}
 						$imageTag = file_exists($image) ? '<img src="' . $image . '" alt="' . $alt . '"/>' : '';
@@ -461,7 +461,7 @@ class tx_mllinks_pi1 extends tslib_pibase {
 	 		// Get rid of 'EXT:'
 	 		$image = substr($image, 4);
 	 		list($ext, $path) = explode('/', $image, 2);
-	 		$extRelPath = substr(t3lib_extMgm::extPath($ext), strlen(PATH_site));
+	 		$extRelPath = substr(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath($ext), strlen(PATH_site));
 	 		$image = $extRelPath . $path;
 	 	}
 
