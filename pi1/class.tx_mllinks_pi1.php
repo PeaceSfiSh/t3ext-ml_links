@@ -809,7 +809,7 @@ class tx_mllinks_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 	/**
 	 * Gets data of created link.
 	 *
-	 * @param string $content
+	 * @param array $content
 	 * @param array $conf
 	 * @return string
 	 */
