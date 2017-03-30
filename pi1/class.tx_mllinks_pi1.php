@@ -46,6 +46,11 @@ class tx_mllinks_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 	protected $separator;
 
 	/**
+     * @var string
+     */
+    protected $tag = '';
+
+	/**
 	 * Goes through config and design the link layout
 	 *
 	 * @param string $content
@@ -65,7 +70,6 @@ class tx_mllinks_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin {
 
 		// Use given seperator
 		$this->separator = isset($this->conf['separator']) ? $this->conf['separator'] : ' ';
-		$this->tag = '';
 
 		// Go through configuration and modify the link
 		switch ($linkType) {
