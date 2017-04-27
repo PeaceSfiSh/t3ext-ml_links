@@ -1,6 +1,10 @@
 <?php
-if (!defined ('TYPO3_MODE')) {
-	die ('Access denied.');
+if (!defined('TYPO3_MODE')) {
+    die('Access denied.');
 }
 
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile($_EXTKEY, 'Configuration/TypoScript/', 'Extended Links - Default configuration');
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile(
+    $_EXTKEY,
+    'Configuration/TypoScript/',
+    'Extended Links - Default configuration'
+);
