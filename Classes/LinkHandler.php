@@ -1,4 +1,7 @@
 <?php
+
+namespace Waurisch\MlLinks;
+
 /***************************************************************
 *  Copyright notice
 *
@@ -25,6 +28,8 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+
 /**
  * Plugin 'Extended links' for the 'ml_links' extension.
  *
@@ -36,12 +41,8 @@
  * @license     http://www.gnu.org/copyleft/gpl.html
  * @version     SVN: $Id$
  */
-class tx_mllinks_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
+class LinkHandler extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
 {
-
-    public $prefixId = 'tx_mllinks_pi1';
-    public $scriptRelPath = 'pi1/class.tx_mllinks_pi1.php';
-    public $extKey = 'ml_links';
 
     protected $buildLink = true;
     protected $separator;
@@ -60,8 +61,6 @@ class tx_mllinks_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
      */
     public function main($content, $conf)
     {
-        $this->pi_loadLL();
-
         // Get configuration
         $this->conf = $GLOBALS['TSFE']->tmpl->setup['plugin.']['tx_mllinks_pi1.'];
 
@@ -852,5 +851,16 @@ class tx_mllinks_pi1 extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
         $GLOBALS['TSFE']->register['tag'] = $content['TAG'];
 
         return $content['TAG'];
+    }
+
+    /**
+     * Wrapper for the LocalizationUtility
+     *
+     * @param string $key
+     * @return string
+     */
+    public function pi_getLL($key, $alternativeLabel = '', $hsc = FALSE)
+    {
+        return LocalizationUtility::translate($key, 'ml_links');
     }
 }

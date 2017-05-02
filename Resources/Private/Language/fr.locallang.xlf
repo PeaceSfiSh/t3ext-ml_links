@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="fr" datatype="plaintext" original="messages" date="2017-05-02T10:09:52Z">
+		<header>
+			<type>module</type>
+			<description>Language labels for module 'Additional reports'</description>
+			<generator>LFEditor</generator>
+		</header>
+		<body>
+			<trans-unit id="GB" approved="yes">
+				<source>GB</source>
+				<target>Go</target>
+			</trans-unit>
+			<trans-unit id="KB" approved="yes">
+				<source>KB</source>
+				<target>Ko</target>
+			</trans-unit>
+			<trans-unit id="MB" approved="yes">
+				<source>MB</source>
+				<target>Mo</target>
+			</trans-unit>
+			<trans-unit id="TB" approved="yes">
+				<source>TB</source>
+				<target>To</target>
+			</trans-unit>
+			<trans-unit id="bytes" approved="yes">
+				<source>bytes</source>
+				<target>octets</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-05-02T10:09:52Z">
+		<header>
+			<type>module</type>
+			<description>Language labels for module 'Additional reports'</description>
+			<generator>LFEditor</generator>
+		</header>
+		<body>
+			<trans-unit id="GB">
+				<source>GB</source>
+			</trans-unit>
+			<trans-unit id="KB">
+				<source>KB</source>
+			</trans-unit>
+			<trans-unit id="MB">
+				<source>MB</source>
+			</trans-unit>
+			<trans-unit id="TB">
+				<source>TB</source>
+			</trans-unit>
+			<trans-unit id="bytes">
+				<source>bytes</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
