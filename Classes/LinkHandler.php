@@ -75,16 +75,16 @@ class LinkHandler extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
         // Go through configuration and modify the link
         switch ($linkType) {
             case 'file':
-                $this->prepareFileLink($content, $fileType, $linkType, $linkTag, $url);
+                $this->prepareFileLink($content, $fileType, $linkTag, $url);
                 break;
             case 'mailto':
-                $this->prepareMailtoLink($content, $fileType, $linkType, $linkTag, $url);
+                $this->prepareMailtoLink($content, $fileType, $linkTag, $url);
                 break;
             case 'page':
-                $this->preparePageLink($content, $fileType, $linkType, $linkTag, $url);
+                $this->preparePageLink($content, $fileType, $linkTag, $url);
                 break;
             case 'url':
-                $this->prepareUrlLink($content, $fileType, $linkType, $linkTag, $url);
+                $this->prepareUrlLink($content, $fileType, $linkTag, $url);
                 break;
         }
 
@@ -106,12 +106,11 @@ class LinkHandler extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
      *
      * @param string $content
      * @param string $fileType
-     * @param string $linkType
      * @param string $linkTag
      * @param string $url
      * @return void
      */
-    protected function prepareFileLink($content, $fileType, $linkType, $linkTag, $url)
+    protected function prepareFileLink($content, $fileType, $linkTag, $url)
     {
         $fileName = $url;
         // For relative links (config.baseURL), there is no leading /
@@ -253,12 +252,11 @@ class LinkHandler extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
      *
      * @param string $content
      * @param string $fileType
-     * @param string $linkType
      * @param string $linkTag
      * @param string $url
      * @return void
      */
-    protected function prepareMailtoLink($content, $fileType, $linkType, $linkTag, $url)
+    protected function prepareMailtoLink($content, $fileType, $linkTag, $url)
     {
         if (isset($this->conf['mailto.'])) {
             /** @var array $settings */
@@ -303,12 +301,11 @@ class LinkHandler extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
      *
      * @param string $content
      * @param string $fileType
-     * @param string $linkType
      * @param string $linkTag
      * @param string $url
      * @return void
      */
-    protected function preparePageLink($content, $fileType, $linkType, $linkTag, $url)
+    protected function preparePageLink($content, $fileType, $linkTag, $url)
     {
         if (isset($this->conf['internal.'])) {
             /** @var array $settings */
@@ -353,12 +350,11 @@ class LinkHandler extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
      *
      * @param string $content
      * @param string $fileType
-     * @param string $linkType
      * @param string $linkTag
      * @param string $url
      * @return void
      */
-    protected function prepareUrlLink($content, $fileType, $linkType, $linkTag, $url)
+    protected function prepareUrlLink($content, $fileType, $linkTag, $url)
     {
         $settings = array();
 
