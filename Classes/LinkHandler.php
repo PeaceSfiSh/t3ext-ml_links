@@ -403,7 +403,7 @@ class LinkHandler extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
                         // Add image
                         if (isset($data['image.'][$ext])) {
                             $image = $data['image.'][$ext];
-                            $alt = isset($data['image.'][$ext]['alt']) ? $data['image.'][$ext]['alt'] : '';
+                            $alt = isset($data['image.'][$ext . '.']['alt']) ? $data['image.'][$ext . '.']['alt'] : '';
                         } else {
                             $image = $data['image'];
                             $alt = isset($data['image.']['alt']) ? $data['image.']['alt'] : '';
