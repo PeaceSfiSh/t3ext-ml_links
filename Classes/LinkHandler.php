@@ -86,6 +86,9 @@ class LinkHandler extends \TYPO3\CMS\Frontend\Plugin\AbstractPlugin
             case 'url':
                 $this->prepareUrlLink($content, $fileType, $linkTag, $url);
                 break;
+            default:
+                $this->buildLink = false;
+                break;
         }
 
         // Delete temp variables
