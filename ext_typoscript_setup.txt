@@ -1,15 +1,24 @@
 tt_content.text.20.parseFunc.tags.link.typolink.userFunc = Waurisch\MlLinks\LinkHandler->getFiletype
 tt_content.text.20.parseFunc.tags.link.postUserFunc = Waurisch\MlLinks\LinkHandler->main
+tt_content.text.20.parseFunc.tags.a.typolink.userFunc = Waurisch\MlLinks\LinkHandler->getFiletype
+tt_content.text.20.parseFunc.tags.a.postUserFunc = Waurisch\MlLinks\LinkHandler->main
 
 tt_content.text.20.parseFunc.tags.typolist.default.parseFunc.tags.link.typolink.userFunc = Waurisch\MlLinks\LinkHandler->getFiletype
 tt_content.text.20.parseFunc.tags.typolist.default.parseFunc.tags.link.postUserFunc = tx_mllinks_pi1->main
+tt_content.text.20.parseFunc.tags.typolist.default.parseFunc.tags.a.typolink.userFunc = Waurisch\MlLinks\LinkHandler->getFiletype
+tt_content.text.20.parseFunc.tags.typolist.default.parseFunc.tags.a.postUserFunc = tx_mllinks_pi1->main
 
 lib.parseFunc.tags.link.typolink.userFunc = Waurisch\MlLinks\LinkHandler->getFiletype
 lib.parseFunc.tags.link.postUserFunc = Waurisch\MlLinks\LinkHandler->main
+lib.parseFunc.tags.a.typolink.userFunc = Waurisch\MlLinks\LinkHandler->getFiletype
+lib.parseFunc.tags.a.postUserFunc = Waurisch\MlLinks\LinkHandler->main
+
 lib.parseFunc.tags.media =< lib.parseFunc_RTE.tags.media
 
 lib.parseFunc_RTE.tags.link.typolink.userFunc = Waurisch\MlLinks\LinkHandler->getFiletype
 lib.parseFunc_RTE.tags.link.postUserFunc = Waurisch\MlLinks\LinkHandler->main
+lib.parseFunc_RTE.tags.a.typolink.userFunc = Waurisch\MlLinks\LinkHandler->getFiletype
+lib.parseFunc_RTE.tags.a.postUserFunc = Waurisch\MlLinks\LinkHandler->main
 
 lib.parseFunc_RTE.tags.media.tag.typolink.userFunc = Waurisch\MlLinks\LinkHandler->getFiletype
 lib.parseFunc_RTE.tags.media.tag.typolink.postUserFunc = Waurisch\MlLinks\LinkHandler->main
